@@ -4,6 +4,10 @@
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <NavBar nombreNegocio="Pac-Foodie Company"/>
     <MenuProductos tituloCentral="Menu"/>
+    <ProductosCards v-for="product in products"
+      :key="product.id" 
+      :product="product"/>
+
   </div>
 </template>
 
@@ -11,13 +15,16 @@
 //import HelloWorld from './components/HelloWorld.vue'
 import NavBar from './components/NavBar.vue'
 import MenuProductos from './components/MenuProductos.vue'
+import ProductosCards from './components/ProductosCards.vue'
 import axios from 'axios'
+
 
 export default {
   name: 'App',
   components: {
     NavBar,
-    MenuProductos
+    MenuProductos,
+    ProductosCards
 },
 data: () => ({
     products: [],
@@ -53,7 +60,7 @@ methods:{
 html{
   background-color: black;
    background-image: url(assets/new-pac-man.png);
-   background-repeat: no-repeat;
+   /*background-repeat: no-repeat;*/
    background-size: 115em 55em;
    background-position-y: 60px;
    background-position-x: center;

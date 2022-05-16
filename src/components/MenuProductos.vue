@@ -1,10 +1,15 @@
 <template>
+<div>
   <div class="contenedor-menu-padding">
       <div class="contenedor-menu">
         <h1 class="typo-menu">{{tituloCentral}}</h1>
         <img src="../assets/fantasmitas.png" class="img-fantasmitas" />
       </div>
   </div>
+  <div>
+  
+</div>
+</div>
 </template>
 
 <script>
