@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "title": "Nombre uno",
+        "price": 800,
+        "stock": 5,
+        "image":"src/assets/hamburguesa1.jpeg"
+    },
+    {
+        "id": 2,
+        "title": "Nombre dos",
+        "price": 800,
+        "stock": 5,
+        "image":"src/assets/hamburguesa1.jpeg"
+    },
+    {
+        "id": 3,
+        "title": "Nombre tres",
+        "price": 800,
+        "stock": 5,
+        "image":"src/assets/hamburguesa1.jpeg"
+    },
+    {
+        "id": 4,
+        "title": "Nombre cuatro",
+        "price": 800,
+        "stock": 5,
+        "image":"src/assets/hamburguesa1.jpeg"
+    }
+]
