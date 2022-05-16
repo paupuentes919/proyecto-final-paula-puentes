@@ -6,7 +6,8 @@
     <MenuProductos tituloCentral="Menu"/>
     <ProductosCards v-for="product in products"
       :key="product.id" 
-      :product="product"/>
+      :product="product"
+      @agregar-al-carrito="actualizarCarrito"/>
 
   </div>
 </template>
@@ -20,30 +21,34 @@ import axios from 'axios'
 
 
 export default {
-  name: 'App',
-  components: {
-    NavBar,
-    MenuProductos,
-    ProductosCards
-},
-data: () => ({
-    products: [],
-    cart: []
-  }),
-mounted(){
-  this.traerProductos();
-  
-},
-methods:{
-  async traerProductos(){
-    try {
-      const resultado = await axios.get('./data/products.json')
-       // Guardar la data en el array products declarado más arriba:
-      this.products = await resultado.data
-      console.log(this.products);
-    } catch (error) {console.log(error)}
-  } 
-}
+    name: 'App',
+    components: {
+      NavBar,
+      MenuProductos,
+      ProductosCards
+  },
+  data: () => ({
+      products: [],
+      cart: []
+    }),
+  mounted(){
+    this.traerProductos();
+    
+  },
+  methods:{
+    async traerProductos(){
+      try {
+        const resultado = await axios.get('./data/products.json')
+        // Guardar la data en el array products declarado más arriba:
+        this.products = await resultado.data
+        console.log(this.products);
+      } catch (error) {console.log(error)}
+    } 
+  },
+  actualizarCarrito(productId) {
+
+  console.log("ver id", productId);
+} 
 }
 </script>
 
