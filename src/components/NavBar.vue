@@ -2,8 +2,7 @@
 <div>
     <nav class="nav-bar">
         <div class="flex-nombre-carrito">
-            <h3 class="typo-pacman">Pac-Foodie</h3>
-            <img src="../assets/fantasmitas.png" class="img-fantasmitas" />
+            <h3 class="typo-pacman">{{nombreNegocio}}</h3>
             <h3>Carrito</h3>
         </div>
     </nav>   
@@ -11,7 +10,15 @@
 </template>
 
 <script>
+
 export default {
+  name: 'NavBar',
+  props: {
+    nombreNegocio:{
+        type: String,
+        required: true
+    }
+  }
 
 }
 </script>
@@ -36,10 +43,7 @@ export default {
     font-size: 30px;
     -webkit-text-stroke: 1px black;
 }
-.img-fantasmitas{
-   height: 8em;
-   margin-top: -45px;  
-}
+
 
 
 

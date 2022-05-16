@@ -2,18 +2,21 @@
   <div id="app">
     <!--<img alt="Vue logo" src="./assets/logo.png">-->
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <NavBar/>
+    <NavBar nombreNegocio="Pac-Foodie Company"/>
+    <MenuProductos tituloCentral="Menu"/>
   </div>
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
 import NavBar from './components/NavBar.vue'
+import MenuProductos from './components/MenuProductos.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    MenuProductos
 }
 }
 </script>
@@ -35,5 +38,8 @@ html{
    background-size: 115em 55em;
    background-position-y: 60px;
    background-position-x: center;
+}
+body{
+  background-color: transparent !important;
 }
 </style>
