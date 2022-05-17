@@ -43,11 +43,33 @@ export default {
         this.products = await resultado.data
         console.log(this.products);
       } catch (error) {console.log(error)}
-    } 
+    },
+    actualizarCarrito(productId) {
+        //console.log("ver id", productId);
+        const productInCart = this.cart.find(product => product.id === productId)
+        if (productInCart) {
+          // Si el producto ya esta en el carrito solamente cambio la cantidad y el precio total para ese producto:
+          productInCart.quantity++;
+          productInCart.total = productInCart.quantity * productInCart.price;
+          console.log("si el producto esta carrito - cantidad", productInCart.quantity);
+          console.log("si el producto esta carrito - precio total", productInCart.total);
+              
+        } else {
+          // Si el producto no esta en el carrito, lo agrego.  
+          // Para no mutar propiedades del array de productos original
+          // busco el producto y lo guardo en un nuevo objeto:
+          const findProduct = this.products.find(product => product.id === productId);
+          const newProduct = { ...findProduct };
+        
+          this.cart.push({
+            ...newProduct,
+            quantity: 1, 
+            total: newProduct.price
+          })
+          console.log("nuevo - cantidad");
+          console.log("nuevo - precio total", newProduct.price);
+        }
   },
-  actualizarCarrito(productId) {
-
-  console.log("ver id", productId);
 } 
 }
 </script>

@@ -4,10 +4,10 @@
     <img class="card-img-top" :src="product.image" alt="product.title">
     <div class="card-body">
         <h3 class="card-title typo-title">{{product.title}}</h3>
-        <p class="card-text typo-text">{{product.description}}</p>
+        <p class="card-text typo-text">{{product.description}}</p> 
         <h6 class="typo-text-bold">Precio Unitario: $ {{product.price}}</h6>
         <p class="typo-text">Disponibles: {{product.stock}}</p>
-        <p class="typo-text">Cantidad: <input type="number" min="1" value="0"></p>
+        <p class="typo-text">Cantidad: <input type="number" min="1" value="0" name="cantidad" @input="cantidadSeleccionada"></p>
         <button class="btn btn-primary typo-text" @click="agregarAlCarrito">Agregar al Carrito</button>
     </div>
     </div>  
@@ -27,6 +27,12 @@ export default {
         agregarAlCarrito() {
             this.$emit("agregar-al-carrito", this.product.id); //le mando del hijo al padre la informacion de que se apreto el boton de "agregar al carrito", mandandole el id del producto seleccionado 
             console.log("agregado", this.product.id); //toma el id ok
+        },
+        cantidadSeleccionada(event){
+            let cantidad = event.target.value;
+            console.log("cantidaddddddddddd",cantidad);
+            //this.$emit("agregar-al-carrito", this.product.id);
+
         }
     }
 }
