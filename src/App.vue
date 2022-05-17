@@ -44,14 +44,17 @@ export default {
         console.log(this.products);
       } catch (error) {console.log(error)}
     },
-    actualizarCarrito(productId,cantidad) {
+    actualizarCarrito(productId,cantidadId,stockId) {
+      console.log("Product", stockId);
+        //let i = this.products.indexOf(productId);
         // console.log("ver id", productId); // llego ok el ID
         // console.log("ver cantidad", cantidad); // llego ok la cantidad
         const productInCart = this.cart.find(product => product.id === productId)
         if (productInCart) {
           // Si el producto ya esta en el carrito solamente cambio la cantidad y el precio total para ese producto:
-          productInCart.quantity = productInCart.quantity + parseInt(cantidad);
-          productInCart.total = productInCart.total + parseInt(cantidad) * productInCart.price;
+          productInCart.quantity = productInCart.quantity + parseInt(cantidadId);
+          productInCart.total = productInCart.total + parseInt(cantidadId) * productInCart.price;
+          productInCart.stock = productInCart.stock - parseInt(cantidadId);
           console.log("cart 2", this.cart);
           // console.log("si el producto esta carrito - cantidad", productInCart.quantity);
           // console.log("si el producto esta carrito - precio total", productInCart.total);
@@ -67,9 +70,11 @@ export default {
         
           this.cart.push({
             ...newProduct,
-           quantity: parseInt(cantidad), 
-           total: newProduct.price * parseInt(cantidad)
+           quantity: parseInt(cantidadId), 
+           total: newProduct.price * parseInt(cantidadId),
+           stock: stockId - parseInt(cantidadId)
           })
+          
           // console.log("nuevo - cantidad", this.newProduct.quantity);
           // console.log("nuevo - precio total", this.newProduct.total);
           console.log("cart 2", this.cart);

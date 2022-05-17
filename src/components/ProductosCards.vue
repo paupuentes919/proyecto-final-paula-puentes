@@ -7,7 +7,7 @@
         <p class="card-text typo-text">{{product.description}}</p> 
         <h6 class="typo-text-bold">Precio Unitario: $ {{product.price}}</h6>
         <p class="typo-text">Disponibles: {{product.stock}}</p>
-        <p class="typo-text">Cantidad: <input type="number" min="0" value="0" name="cantidad" @input="cantidadSeleccionada"></p>
+        <p class="typo-text">Cantidad: <input type="number" min="0" max="maximoValor" value="0" name="cantidad" @input="cantidadSeleccionada"></p>
         <button class="btn btn-primary typo-text" @click="agregarAlCarrito">Agregar al Carrito</button>
     </div>
     </div>  
@@ -24,11 +24,12 @@ export default {
         },
     },
     data: () => ({
-      cantidad: null
+      cantidad: null,
+      maximoValor: null
     }),
     methods: {
         agregarAlCarrito() {
-            this.$emit("agregar-al-carrito", this.product.id, this.cantidad); //le mando del hijo al padre la informacion de que se apreto el boton de "agregar al carrito", mandandole el id del producto seleccionado 
+            this.$emit("agregar-al-carrito", this.product.id, this.cantidad, this.product.stock); //le mando del hijo al padre la informacion de que se apreto el boton de "agregar al carrito", mandandole el id del producto seleccionado 
         },
         cantidadSeleccionada(event){
             return this.cantidad = event.target.value;
