@@ -44,15 +44,17 @@ export default {
         console.log(this.products);
       } catch (error) {console.log(error)}
     },
-    actualizarCarrito(productId) {
-        //console.log("ver id", productId);
+    actualizarCarrito(productId,cantidad) {
+        // console.log("ver id", productId); // llego ok el ID
+        // console.log("ver cantidad", cantidad); // llego ok la cantidad
         const productInCart = this.cart.find(product => product.id === productId)
         if (productInCart) {
           // Si el producto ya esta en el carrito solamente cambio la cantidad y el precio total para ese producto:
-          productInCart.quantity++;
-          productInCart.total = productInCart.quantity * productInCart.price;
-          console.log("si el producto esta carrito - cantidad", productInCart.quantity);
-          console.log("si el producto esta carrito - precio total", productInCart.total);
+          productInCart.quantity = productInCart.quantity + parseInt(cantidad);
+          productInCart.total = productInCart.total + parseInt(cantidad) * productInCart.price;
+          console.log("cart 2", this.cart);
+          // console.log("si el producto esta carrito - cantidad", productInCart.quantity);
+          // console.log("si el producto esta carrito - precio total", productInCart.total);
               
         } else {
           // Si el producto no esta en el carrito, lo agrego.  
@@ -60,14 +62,17 @@ export default {
           // busco el producto y lo guardo en un nuevo objeto:
           const findProduct = this.products.find(product => product.id === productId);
           const newProduct = { ...findProduct };
+          console.log("newProduct", newProduct);
+          // console.log("cart", this.cart);
         
           this.cart.push({
             ...newProduct,
-            quantity: 1, 
-            total: newProduct.price
+           quantity: parseInt(cantidad), 
+           total: newProduct.price * parseInt(cantidad)
           })
-          console.log("nuevo - cantidad");
-          console.log("nuevo - precio total", newProduct.price);
+          // console.log("nuevo - cantidad", this.newProduct.quantity);
+          // console.log("nuevo - precio total", this.newProduct.total);
+          console.log("cart 2", this.cart);
         }
   },
 } 
