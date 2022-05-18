@@ -7,7 +7,7 @@
         <p class="card-text typo-text">{{product.description}}</p> 
         <h6 class="typo-text-bold">Precio Unitario: $ {{product.price}}</h6>
         <p class="typo-text">Disponibles: {{product.stock}}</p>
-        <p class="typo-text">Cantidad: <input type="number" min="0" max="maximoValor" value="0" name="cantidad" @input="cantidadSeleccionada"></p>
+        <p class="typo-text">Cantidad: <input type="number" min="1" name="cantidad" @input="cantidadSeleccionada"></p>
         <button class="btn btn-primary typo-text" @click="agregarAlCarrito">Agregar al Carrito</button>
     </div>
     </div>  

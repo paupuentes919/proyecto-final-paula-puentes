@@ -14,13 +14,21 @@
             <button class="modal__close boton" @click="close">X</button>
             <span class="modal__title text-title">Tu Carrito de Compras</span>
              <img class="pacman" alt="pacman" src="../assets/pacman2.png">
-            <div class="modal__content text-carrito">
-                <div v-for="product in cart" :key="product.id">
-                    <div>{{product.title}}</div>   
-                    <div>{{product.quantity}}</div>
-                    <div>{{product.total}}</div>
+                <div class="modal__content text-carrito">
+                    <div class="tabla-contenido" v-for="product in cart" :key="product.id">
+                        <img class="pacman" alt="pacman" src="../assets/pacman2.png">
+                        <div class="info-comida">
+                            <div>Hamburguesa: {{product.title}}</div>   
+                            <div>Cantidad: {{product.quantity}}</div>
+                            <div>Precio: $ {{product.total}}</div>
+                        </div>
+                    </div>
+                    <div class="game-over">
+                        <div class="space">GAME OVER</div> 
+                        <div class="space">Precio Total: $ {{sumarPrecioTotal}}</div>
+                        <button class="space">Comprar</button> 
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 
@@ -28,6 +36,7 @@
 </template>
 
 <script>
+
 
 import { $vfm, VueFinalModal} from 'vue-final-modal'
 
@@ -43,10 +52,19 @@ export default {
     methods:{
         close(){
             $vfm.hide('ModalCarrito');
-            console.log("hola");
+            
+        },
+        sumaTotalProductos(){
+            console.log(this.cart);
         }
 
-    }
+    },
+     computed:{
+         sumarPrecioTotal(){
+             return this.cart.reduce((acc, product) => acc + product.total, 0)
+         }
+     }
+    
 }
 </script>
 
@@ -92,6 +110,23 @@ export default {
 .text-carrito{
     color: white;
     font-family: 'Press Start 2P', cursive;
+}
+.tabla-contenido{
+    display: flex;
+    margin-left: 1rem;
+}
+.info-comida{
+    margin-left: 8rem;
+}
+.game-over{
+    margin-top: 3rem;
+    margin-right: 8rem;
+    margin-left: 8rem;
+    padding-top:0.3rem;
+    background: grey;
+}
+.space{
+    margin: 0.5rem 0;
 }
 
 </style>

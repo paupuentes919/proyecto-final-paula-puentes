@@ -7,7 +7,6 @@
                 <img class="pacman" alt="pacman" src="../assets/pacman.png">
                  <h3 class="counter">{{cartCounter}}</h3>
             </button>
-           
         </div>
     </nav>  
     <modal-carrito
@@ -40,8 +39,7 @@ export default {
   }),
   computed: {
     cartCounter () {
-      //return this.cart.reduce((acc, product) => acc + product.cantidad, 0)
-      return 12;
+      return this.cart.reduce((acc, product) => acc + product.quantity, 0)
     }
   }
 

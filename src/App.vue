@@ -2,7 +2,7 @@
   <div id="app">
     <!--<img alt="Vue logo" src="./assets/logo.png">-->
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <NavBar nombreNegocio="Pac-Foodie Company"/>
+    <NavBar nombreNegocio="Pac-Foodie Company" :cart="cart"/>
     <MenuProductos tituloCentral="Menu"/>
     <ProductosCards v-for="product in products"
       :key="product.id" 
