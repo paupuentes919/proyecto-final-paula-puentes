@@ -22,6 +22,8 @@
                             <div>Cantidad: {{product.quantity}}</div>
                             <div>Precio: $ {{product.total}}</div>
                         </div>
+                        <button class="modal__close boton info-comida" @click="restarProducto(product.id, product.quantity, product.total, product.stock)">-</button>
+                        <button class="modal__close boton-mas info-comida" @click="sumarProducto(product.id)">+</button>
                     </div>
                     <div class="game-over">
                         <div class="space">GAME OVER</div> 
@@ -56,6 +58,32 @@ export default {
         },
         sumaTotalProductos(){
             console.log(this.cart);
+        },
+        restarProducto(productID){
+            this.cart.find((productCart) => {
+                if (productCart.id === productID && productCart.quantity != 0){
+                    productCart.quantity--;
+                    productCart.stock++;
+                    productCart.total = productCart.total - productCart.price;
+                } 
+                if (productCart.id === productID && productCart.quantity == 0){
+                    //this.cart.splice(productID, 1);   no me anda. O sea lo que quiero hacer es hacer update del this.cart sumando o restando cantidades y si es cero que directamente me lo saque del carrito, ergo no me lo muestre
+                }
+            })          
+            // let index = this.cart.indexOf(productID);
+            // console.log("index", index); //me retorna -1, como si el elemento no existiese 
+            // if (this.cart[index].quantity != 0){
+            //     console.log("hola", this.cart[index].quantity);
+            // }    Como hago para hacer update al carrito ==> this.cart ?????
+        },
+        sumarProducto(productID){
+            this.cart.find((productCart) => {
+                if (productCart.id === productID && productCart.quantity < productCart.stock){
+                    productCart.quantity++;
+                    productCart.stock--;
+                    productCart.total = productCart.total + productCart.price;
+                } 
+                })   
         }
 
     },
@@ -97,6 +125,17 @@ export default {
     width: 3rem;
     height: 3rem;
 }
+.boton-mas{
+    display: flex;
+    justify-content: right;
+    background: green;
+    color: white;
+    font-size: 30px;
+    font-family: 'Press Start 2P', cursive;
+    border: 3px solid black;
+    width: 3rem;
+    height: 3rem;
+}
 .text-title{
     color: yellow;
     font-family: 'Press Start 2P', cursive;
@@ -104,7 +143,7 @@ export default {
 }
 .pacman{
     width: 5rem;
-    margin-left: 4rem;
+    /* margin-left: 4rem; */
     margin-bottom: 1.5rem; 
 }
 .text-carrito{
@@ -113,11 +152,12 @@ export default {
 }
 .tabla-contenido{
     display: flex;
-    margin-left: 1rem;
+    justify-content: space-evenly;
+    /* margin-left: 1rem; */
 }
 .info-comida{
-    margin-left: 8rem;
-}
+    margin: 1.5rem 0;
+} 
 .game-over{
     margin-top: 3rem;
     margin-right: 8rem;

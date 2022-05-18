@@ -2,6 +2,7 @@
   <div id="app">
     <!--<img alt="Vue logo" src="./assets/logo.png">-->
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
+    <!-- <ModalCarrito :cart="cart" @restar-producto="quitarProducto"/> -->
     <NavBar nombreNegocio="Pac-Foodie Company" :cart="cart"/>
     <MenuProductos tituloCentral="Menu"/>
     <ProductosCards v-for="product in products"
@@ -17,16 +18,18 @@
 import NavBar from './components/NavBar.vue'
 import MenuProductos from './components/MenuProductos.vue'
 import ProductosCards from './components/ProductosCards.vue'
+//import ModalCarrito from './components/ModalCarrito.vue'
 import axios from 'axios'
 
 
 export default {
     name: 'App',
     components: {
-      NavBar,
-      MenuProductos,
-      ProductosCards
-  },
+    NavBar,
+    MenuProductos,
+    ProductosCards,
+    //ModalCarrito
+},
   data: () => ({
       products: [],
       cart: []
@@ -39,7 +42,7 @@ export default {
     async traerProductos(){
       try {
         const resultado = await axios.get('./data/products.json')
-        // Guardar la data en el array products declarado más arriba:
+        // Guardar la data en el array products declarado más arriba que esta vacio:
         this.products = await resultado.data
         console.log(this.products);
       } catch (error) {console.log(error)}
@@ -56,12 +59,10 @@ export default {
           productInCart.total = productInCart.total + parseInt(cantidadId) * productInCart.price;
           productInCart.stock = productInCart.stock - parseInt(cantidadId);
           console.log("cart 2", this.cart);
-          // console.log("si el producto esta carrito - cantidad", productInCart.quantity);
-          // console.log("si el producto esta carrito - precio total", productInCart.total);
               
         } else {
           // Si el producto no esta en el carrito, lo agrego.  
-          // Para no mutar propiedades del array de productos original
+          // Para no mutar propiedades del array de productos original ==> No conviene modificar la info original del JSON
           // busco el producto y lo guardo en un nuevo objeto:
           const findProduct = this.products.find(product => product.id === productId);
           const newProduct = { ...findProduct };
@@ -77,10 +78,9 @@ export default {
           
           // console.log("nuevo - cantidad", this.newProduct.quantity);
           // console.log("nuevo - precio total", this.newProduct.total);
-          console.log("cart 2", this.cart);
-        }
-  },
-} 
+       }
+    },
+  } 
 }
 </script>
 

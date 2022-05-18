@@ -33,16 +33,16 @@
     },
     {
         "id": 5,
-        "title": "Nombre cuatro",
-        "description": "Descripcion cuatro",
+        "title": "Nombre cinco",
+        "description": "Descripcion cinco",
         "price": 800,
         "stock": 5,
         "image":"https://okdiario.com/img/2021/05/28/hamburguesa-3.jpg"
     },
     {
         "id": 6,
-        "title": "Nombre cuatro",
-        "description": "Descripcion cuatro",
+        "title": "Nombre seis",
+        "description": "Descripcion seis",
         "price": 800,
         "stock": 5,
         "image":"https://okdiario.com/img/2021/05/28/hamburguesa-3.jpg"
