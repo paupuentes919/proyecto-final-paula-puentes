@@ -16,14 +16,16 @@
              <img class="pacman" alt="pacman" src="../assets/pacman2.png">
                 <div class="modal__content text-carrito">
                     <div class="tabla-contenido" v-for="product in cart" :key="product.id">
-                        <img class="pacman" alt="pacman" src="../assets/pacman2.png">
+                        <img class="pacman-comida" alt="pacman" :src="product.image">
                         <div class="info-comida">
                             <div>Hamburguesa: {{product.title}}</div>   
                             <div>Cantidad: {{product.quantity}}</div>
                             <div>Precio: $ {{product.total}}</div>
                         </div>
-                        <button class="modal__close boton info-comida" @click="restarProducto(product.id, product.quantity, product.total, product.stock)">-</button>
+                        <div class="botones">
+                        <button class="modal__close boton-menos info-comida" @click="restarProducto(product.id, product.quantity, product.total, product.stock)">-</button>
                         <button class="modal__close boton-mas info-comida" @click="sumarProducto(product.id)">+</button>
+                        </div>
                     </div>
                     <div class="game-over">
                         <div class="space">GAME OVER</div> 
@@ -63,7 +65,7 @@ export default {
             this.cart.find((productCart) => {
                 if (productCart.id === productID && productCart.quantity != 0){
                     productCart.quantity--;
-                    productCart.stock++;
+                    //productCart.stock++;
                     productCart.total = productCart.total - productCart.price;
                 } 
                 if (productCart.id === productID && productCart.quantity == 0){
@@ -80,7 +82,7 @@ export default {
             this.cart.find((productCart) => {
                 if (productCart.id === productID && productCart.quantity < productCart.stock){
                     productCart.quantity++;
-                    productCart.stock--;
+                    //productCart.stock--;
                     productCart.total = productCart.total + productCart.price;
                 } 
                 })   
@@ -114,6 +116,13 @@ export default {
     right: 20%;
     z-index: 3;
 }
+.botones{
+    display: flex;
+    justify-content: right;
+    margin-left: 2rem;
+    
+
+}
 .boton{
     display: flex;
     justify-content: right;
@@ -125,9 +134,16 @@ export default {
     width: 3rem;
     height: 3rem;
 }
+.boton-menos{
+    background: red;
+    color: white;
+    font-size: 30px;
+    font-family: 'Press Start 2P', cursive;
+    border: 3px solid black;
+    width: 3rem;
+    height: 3rem;
+}
 .boton-mas{
-    display: flex;
-    justify-content: right;
     background: green;
     color: white;
     font-size: 30px;
@@ -144,6 +160,12 @@ export default {
 .pacman{
     width: 5rem;
     /* margin-left: 4rem; */
+    margin-bottom: 1.5rem; 
+}
+.pacman-comida{
+    width: 11rem;
+    /* margin-left: 4rem; */
+    margin-top: -2.5rem;
     margin-bottom: 1.5rem; 
 }
 .text-carrito{
