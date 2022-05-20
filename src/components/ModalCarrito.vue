@@ -15,22 +15,27 @@
             <span class="modal__title text-title">Tu Carrito de Compras</span>
              <img class="pacman" alt="pacman" src="../assets/pacman2.png">
                 <div class="modal__content text-carrito">
-                    <div class="tabla-contenido" v-for="product in cart" :key="product.id">
-                        <img class="pacman-comida" alt="pacman" :src="product.image">
-                        <div class="info-comida">
-                            <div>Hamburguesa: {{product.title}}</div>   
-                            <div>Cantidad: {{product.quantity}}</div>
-                            <div>Precio: $ {{product.total}}</div>
+                    <div v-if="cart.length != 0">
+                        <div class="tabla-contenido" v-for="product in cart" :key="product.id">
+                            <img class="pacman-comida" alt="pacman" :src="product.image">
+                            <div class="info-comida">
+                                <div>Hamburguesa: {{product.title}}</div>   
+                                <div>Cantidad: {{product.quantity}}</div>
+                                <div>Precio: $ {{product.total}}</div>
+                            </div>
+                            <div class="botones">
+                            <button class="modal__close boton-menos info-comida" @click="restarProducto(product.id)">-</button>
+                            <button class="modal__close boton-mas info-comida" @click="sumarProducto(product.id)">+</button>
+                            </div>
                         </div>
-                        <div class="botones">
-                        <button class="modal__close boton-menos info-comida" @click="restarProducto(product.id, product.quantity, product.total, product.stock)">-</button>
-                        <button class="modal__close boton-mas info-comida" @click="sumarProducto(product.id)">+</button>
+                        <div class="game-over">
+                            <div class="space">GAME OVER</div> 
+                            <div class="space">Precio Total: $ {{sumarPrecioTotal}}</div>
+                            <button class="space">Comprar</button> 
                         </div>
                     </div>
-                    <div class="game-over">
-                        <div class="space">GAME OVER</div> 
-                        <div class="space">Precio Total: $ {{sumarPrecioTotal}}</div>
-                        <button class="space">Comprar</button> 
+                    <div v-else>
+                        <h3>Tu carrito esta vacío</h3>
                     </div>
                 </div>
         </div>
@@ -65,11 +70,16 @@ export default {
             this.cart.find((productCart) => {
                 if (productCart.id === productID && productCart.quantity != 0){
                     productCart.quantity--;
+                    console.log("holissssss", this.cart);
+                    //this.cart[productID-1].quantity = productCart.quantity--;
                     //productCart.stock++;
                     productCart.total = productCart.total - productCart.price;
                 } 
                 if (productCart.id === productID && productCart.quantity == 0){
-                    //this.cart.splice(productID, 1);   no me anda. O sea lo que quiero hacer es hacer update del this.cart sumando o restando cantidades y si es cero que directamente me lo saque del carrito, ergo no me lo muestre
+                    //productCart.splice(productID,1);
+                    //this.cart.splice(productID,1);
+                    //this.cart.splice(productCart.id, 1); 
+                    // this.cart.splice(productID, 1);   no me anda. O sea lo que quiero hacer es hacer update del this.cart sumando o restando cantidades y si es cero que directamente me lo saque del carrito, ergo no me lo muestre
                 }
             })          
             // let index = this.cart.indexOf(productID);
@@ -81,6 +91,7 @@ export default {
         sumarProducto(productID){
             this.cart.find((productCart) => {
                 if (productCart.id === productID && productCart.quantity < productCart.stock){
+                          console.log("holissssssaaaa", this.cart);
                     productCart.quantity++;
                     //productCart.stock--;
                     productCart.total = productCart.total + productCart.price;
