@@ -6,9 +6,7 @@
     classes="modal-container"
     content-class="modal-content"
     v-on="$listeners"
-  >
- 
-    
+  >  
     <div class="modal">
         <div class="contenido">
             <button class="modal__close boton" @click="close">X</button>

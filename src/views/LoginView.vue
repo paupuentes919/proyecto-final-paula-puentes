@@ -1,12 +1,18 @@
 <template>
-  <div>
-      
-  </div>
+  <vue-final-modal>
+    Hola   
+  </vue-final-modal>
 </template>
 
 <script>
-export default {
 
+import VueFinalModal from 'vue-final-modal'
+
+export default {
+  name: 'LoginView',
+  components:{
+        VueFinalModal
+    },
 }
 </script>
 
