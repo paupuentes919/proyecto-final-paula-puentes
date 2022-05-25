@@ -16,7 +16,8 @@ import NavBar from './components/NavBar.vue'
 import MenuProductos from './components/MenuProductos.vue'
 import ProductosCards from './components/ProductosCards.vue'
 //import ModalCarrito from './components/ModalCarrito.vue'
-import axios from 'axios'
+// import axios from 'axios'
+import api from './services/api-services'
 
 
 export default {
@@ -37,13 +38,16 @@ export default {
   },
   methods:{
     async traerProductos(){
-      try {
-        const resultado = await axios.get('./data/products.json')
-        // Guardar la data en el array products declarado más arriba que esta vacio:
-        this.products = await resultado.data
-        console.log(this.products);
-      } catch (error) {console.log(error)}
+      this.products = await api.traerProductos();
     },
+    // async traerProductos(){
+    //   try {
+    //     const resultado = await axios.get('./data/products.json')
+    //     // Guardar la data en el array products declarado más arriba que esta vacio:
+    //     this.products = await resultado.data
+    //     console.log(this.products);
+    //   } catch (error) {console.log(error)}
+    // },
     actualizarCarrito({ productId, cantidadId }) {
       
         //let i = this.products.indexOf(productId);
