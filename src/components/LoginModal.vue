@@ -10,34 +10,36 @@
     <div class="modal">
         <div class="contenido">
             <button class="modal__close boton" @click="close">X</button>
+            <img src="../assets/pacman-fantasmitas.jpg" class="modal-image">
 
-            <label for="inputUsername" class="typo-input">Usuario
-                  <span v-if="usernameOk">✅</span> 
-            </label>
-                <input
-                    type="text"
-                    id="inputUsername"
-                    class="form-control"
-                    v-model="user.username"
-                    @keyup="validarUsername"
-                    required
-                >
+            <div class="row">
+                <label for="inputUsername" class="typo-input">Usuario
+                    <span v-if="usernameOk">✅</span> 
+                </label>
+                    <input
+                        type="text"
+                        id="inputUsername"
+                        class="form-control"
+                        v-model="user.username"
+                        @keyup="validarUsername"
+                        required
+                    >
 
-            <label for="inputPassword" class="typo-input">Contraseña
-                  <span v-if="passwordOk">✅</span> 
-            </label>
-                <input
-                    type="text"
-                    id="inputPassword"
-                    class="form-control"
-                    v-model="user.password"
-                    @keyup="validarPassword"
-                    required
-                >
-            
-            <button @click="validarDatos">Iniciar Sesion</button>
-            <h4>No estas registrado? Registrate aqui:</h4>
-            <button>Registrarse</button>     
+                <label for="inputPassword" class="typo-input">Contraseña
+                    <span v-if="passwordOk">✅</span> 
+                </label>
+                    <input
+                        type="text"
+                        id="inputPassword"
+                        class="form-control"
+                        v-model="user.password"
+                        @keyup="validarPassword"
+                        required
+                    >
+            </div>
+            <button class="btn-modalLogin" @click="validarDatos">Iniciar Sesion</button>
+            <h4 class="register">No estas registrado? Registrate aqui:</h4>
+            <button class="btn-modalLogin">Registrarse</button>     
         </div>
     </div>
 
@@ -104,13 +106,6 @@ export default {
 </script>
 
 <style scoped>
-.warning{
-    background: red;
-
-}
-.hide{
-    color: black;
-}
 
 .modal{
     display: flex;
@@ -123,17 +118,10 @@ export default {
     border: 5px solid rgb(17, 110, 231);
     width: 50%;
     height: 80%;
-    overflow: scroll;
+    /* overflow: scroll; */
     top: 0;
     right: 20%;
     z-index: 3;
-}
-.botones{
-    display: flex;
-    justify-content: right;
-    margin-left: 2rem;
-    
-
 }
 .boton{
     display: flex;
@@ -146,61 +134,38 @@ export default {
     width: 3rem;
     height: 3rem;
 }
-.boton-menos{
-    background: red;
-    color: white;
-    font-size: 30px;
-    font-family: 'Press Start 2P', cursive;
-    border: 3px solid black;
-    width: 3rem;
-    height: 3rem;
-}
-.boton-mas{
-    background: green;
-    color: white;
-    font-size: 30px;
-    font-family: 'Press Start 2P', cursive;
-    border: 3px solid black;
-    width: 3rem;
-    height: 3rem;
-}
-.text-title{
+.typo-input{
     color: yellow;
     font-family: 'Press Start 2P', cursive;
-    font-size: xx-large;
+    margin-bottom: 1rem;
 }
-.pacman{
-    width: 5rem;
-    /* margin-left: 4rem; */
-    margin-bottom: 1.5rem; 
-}
-.pacman-comida{
-    width: 11rem;
-    /* margin-left: 4rem; */
-    margin-top: -2.5rem;
-    margin-bottom: 1.5rem; 
-}
-.text-carrito{
-    color: white;
-    font-family: 'Press Start 2P', cursive;
-}
-.tabla-contenido{
+.modal .form-control{
+    margin-bottom: 1.5rem;
+    /* margin-left: 15rem; */
+    width: 60%;
     display: flex;
-    justify-content: space-evenly;
-    /* margin-left: 1rem; */
+    justify-content: center;
 }
-.info-comida{
-    margin: 1.5rem 0;
-} 
-.game-over{
-    margin-top: 3rem;
-    margin-right: 8rem;
-    margin-left: 8rem;
-    padding-top:0.3rem;
-    background: grey;
+.modal-image{ 
+    width: 30rem;
+    margin-bottom: 2rem;
 }
-.space{
-    margin: 0.5rem 0;
+.row{
+    justify-content: center;
 }
-
+.btn-modalLogin{
+    background: rgb(103, 214, 103);
+    font-family: 'Press Start 2P', cursive;
+    height: 3.5rem;
+    box-shadow: 1px 1px 2px white;
+    border-radius: 10px;
+    margin: 2.5rem 0;
+}
+.register{
+    color: yellow;
+    font-family: 'Press Start 2P', cursive;
+    font-size: medium;
+    margin-bottom: 0;
+    margin-top: 2rem;
+}
 </style>

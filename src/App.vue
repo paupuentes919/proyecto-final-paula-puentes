@@ -2,10 +2,16 @@
   <div id="app">
     <NavBar nombreNegocio="Pac-Foodie Company" :cart="cart"/>
     <MenuProductos tituloCentral="Menu"/>
-    <ProductosCards v-for="product in products"
+    <!-- <ProductosCards v-for="product in products"
       :key="product.id" 
       :product="product"
-      @agregar-al-carrito="actualizarCarrito"/>
+      @agregar-al-carrito="actualizarCarrito"/> -->
+    <router-view
+      :products = "products"
+      :cart = "cart"
+      @agregar-al-carrito="actualizarCarrito"
+    />
+
 
   </div>
 </template>
@@ -14,7 +20,7 @@
 //import HelloWorld from './components/HelloWorld.vue'
 import NavBar from './components/NavBar.vue'
 import MenuProductos from './components/MenuProductos.vue'
-import ProductosCards from './components/ProductosCards.vue'
+// import ProductosCards from './components/ProductosCards.vue'
 //import ModalCarrito from './components/ModalCarrito.vue'
 // import axios from 'axios'
 import api from './services/api-services'
@@ -25,7 +31,7 @@ export default {
     components: {
     NavBar,
     MenuProductos,
-    ProductosCards,
+    //ProductosCards,
     //ModalCarrito
 },
   data: () => ({
@@ -34,11 +40,15 @@ export default {
     }),
   mounted(){
     this.traerProductos();
+    this.traerCarrito();
     
   },
   methods:{
     async traerProductos(){
       this.products = await api.traerProductos();
+    },
+    traerCarrito(){
+      this.cart = JSON.parse(localStorage.getItem('cart')) || [];
     },
     // async traerProductos(){
     //   try {
