@@ -8,6 +8,12 @@ const api = {
             let resultado = await axios.get(apiURL + '/products');
             return resultado.data;
         } catch (error) {console.log(error)}
+    },
+    traerUsuarios: async() => {
+        try {
+            let resultado = await axios.get(apiURL + '/users');
+            return resultado.data;
+        } catch (error) {console.log(error)}
     }
 }
 export default api
