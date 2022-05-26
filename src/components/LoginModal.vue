@@ -92,11 +92,11 @@ export default {
     },
     validarDatos(){
         if( this.usernameOk && this.passwordOk){
-            console.log("hola");
+            this.close();
         }
     },
     close(){
-        $vfm.hide('ModalCarrito'); 
+        $vfm.hide('LoginModal'); 
     },
     }
     

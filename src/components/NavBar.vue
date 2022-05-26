@@ -4,12 +4,10 @@
         <div class="flex-nombre-carrito">
             <h3 class="typo-pacman">{{nombreNegocio}}</h3>
             <div class="login-carrito">
-                <router-link to="/SignUpView"> 
-                    <button class="btn-login">
+                    <button class="btn-login" @click="MostrarModalLogin = true">
                         <img class="play-triangule" alt="play" src="../assets/playtriangule.png">Login
                     </button>
-                </router-link> 
-                <button class="btn-login" @click="MostrarModal = true">
+                <button class="btn-login" @click="MostrarModalCarrito = true">
                     <div class="carrito-qty">
                         <img class="cart-shop" alt="cart" src="../assets/carrito.png">
                         <h3 class="counter">{{cartCounter}}</h3>
@@ -18,23 +16,25 @@
             </div>
         </div>
     </nav> 
-    <router-view/> 
     <modal-carrito
-        v-model="MostrarModal"
+        v-model="MostrarModalCarrito"
         :cart="cart"> 
     </modal-carrito> 
+    <LoginModal v-model="MostrarModalLogin"/>
 </div> 
 </template>
 
 <script>
 
 import ModalCarrito from './ModalCarrito.vue';
+import LoginModal from './LoginModal.vue';
 
 export default {
   name: 'NavBar',
   components:{
-      ModalCarrito
-  },
+    ModalCarrito,
+    LoginModal,
+},
   props: {
     nombreNegocio:{
         type: String,
@@ -45,7 +45,8 @@ export default {
     }
   },
   data: () => ({
-    MostrarModal: false
+    MostrarModalCarrito: false,
+    MostrarModalLogin: false
   }),
   computed: {
     cartCounter () {
