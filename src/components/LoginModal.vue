@@ -61,7 +61,7 @@ export default {
     },
     data: () => ({
       users: [],
-      userLogin: [],
+      userLogin: null,
       user:{
           username:'',
           password:'',
@@ -72,53 +72,55 @@ export default {
       failLogin: false,
 
     }),
-  
-    mounted(){
-        this.traerUsuarios();
-    },
-    methods:{
-        async traerUsuarios(){
+    async created(){
         this.users = await api.traerUsuarios();
         console.log("users", this.users)
     },
-    validarUsername(){
-        this.users.forEach(element => {
-            if (element.username == this.user.username){
-                   return this.usernameOk = true;
-            }    
-        });
+    mounted(){
     },
-    validarPassword(){
-        this.users.forEach(element => {
-            if (element.password == this.user.password){
-                   return this.passwordOk = true;
-            }    
-        });
-    },
-    // failLoginUser(){
-    //     if (!this.usernameOk || !this.passwordOk && (this.user.username=='' || this.user.password==''))
-    //         return 'failLoginBlack';
-    //     else if(!this.usernameOk || !this.passwordOk)
-    //          return 'failLoginRed';
-    // },
-    validarDatos(){
-        this.userLogin = JSON.parse(localStorage.getItem('userLogin')) || [];
-        this.users.forEach( element => {
-            if( element.username == this.user.username && element.password == this.user.password){
-                 this.userLogin = JSON.parse(localStorage.setItem("userLogin", JSON.stringify(element)));
-                 if (element.isAdmin)
-                    this.$router.push({name:"AdminView"})
-                 else
-                    this.$router.push({name:"UserView"})
-                this.close();
+    methods:{
+        validarUsername(){
+            if (this.user.username.length < 3) {
+                this.usernameOk = false;//No permitimos nombres de menos de 3 caracteres
+            }else {
+                this.usernameOk = true;
             }
-            else 
-                return this.failLogin = true;        
-        } )
-    },
-    close(){
-        $vfm.hide('LoginModal'); 
-    },
+        },
+        validarPassword(){
+            if (this.user.password.length < 3) {
+                this.passwordOk = false;//No permitimos passwords de menos de 3 caracteres
+            }else {
+                this.passwordOk = true;
+            }
+        },
+        // failLoginUser(){
+        //     if (!this.usernameOk || !this.passwordOk && (this.user.username=='' || this.user.password==''))
+        //         return 'failLoginBlack';
+        //     else if(!this.usernameOk || !this.passwordOk)
+        //          return 'failLoginRed';
+        // },
+        validarDatos(){
+            let datosValidos = false;
+            this.users.forEach( element => {
+                if( element.username == this.user.username && element.password == this.user.password){
+                    datosValidos = true;
+                    //Acá guardamos el usuario logueado en el storage, para luego recuperarlo en alguna otra vista.
+                    localStorage.setItem("userLogin", JSON.stringify(element));
+                    if (element.isAdmin)
+                        this.$router.push({name:"AdminView"})
+                    else
+                        this.$router.push({name:"UserView"})
+                    this.close();
+                }    
+            })
+
+            if (datosValidos == false){
+                this.failLogin = true; 
+            }
+        },
+        close(){
+            $vfm.hide('LoginModal'); 
+        },
     }
     
 }
