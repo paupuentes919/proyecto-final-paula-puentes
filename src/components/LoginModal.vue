@@ -36,12 +36,15 @@
                         @keyup="validarPassword"
                         required
                     >
-            <span v-if="failLogin">Usuario o contraseña inválido</span>
+            <span class="failLoginRed" v-if="failLogin">Usuario o contraseña inválido</span>
             </div>
            
             <button class="btn-modalLogin" @click="validarDatos">Iniciar Sesion</button>
             <h4 class="register">No estas registrado? Registrate aqui:</h4>
-            <button class="btn-modalLogin">Registrarse</button>     
+            <button class="btn-modalLogin" @click="registrarse">Registrarse</button> 
+            <div class="row">
+                <span class="failLoginRed" v-if="registerDone">Ya estas registrado</span>  
+            </div>  
         </div>
     </div>
 
@@ -70,6 +73,7 @@ export default {
       usernameOk: false,
       passwordOk: false,
       failLogin: false,
+      registerDone: false
 
     }),
     async created(){
@@ -93,12 +97,6 @@ export default {
                 this.passwordOk = true;
             }
         },
-        // failLoginUser(){
-        //     if (!this.usernameOk || !this.passwordOk && (this.user.username=='' || this.user.password==''))
-        //         return 'failLoginBlack';
-        //     else if(!this.usernameOk || !this.passwordOk)
-        //          return 'failLoginRed';
-        // },
         validarDatos(){
             let datosValidos = false;
             this.users.forEach( element => {
@@ -117,6 +115,17 @@ export default {
             if (datosValidos == false){
                 this.failLogin = true; 
             }
+        },
+        registrarse(){
+             this.users.forEach( element => {
+                  if( element.username == this.user.username && element.password == this.user.password){
+                      this.registerDone = true;
+                  }
+                  else if (this.registerDone == false){
+                      this.$router.push({name:"SignUpView"})
+                      this.close();
+                  }      
+             })     
         },
         close(){
             $vfm.hide('LoginModal'); 
@@ -138,8 +147,8 @@ export default {
     background: black;
     border: 5px solid rgb(17, 110, 231);
     width: 50%;
-    height: 80%;
-    /* overflow: scroll; */
+    height: 85%;
+    overflow: scroll;
     top: 0;
     right: 20%;
     z-index: 3;
@@ -194,9 +203,5 @@ export default {
     font-family: 'Press Start 2P', cursive;
     font-size: smaller;
 }
-.failLoginBlack{
-    color: black;
-    font-family: 'Press Start 2P', cursive;
-    font-size: smaller;
-}
+
 </style>
