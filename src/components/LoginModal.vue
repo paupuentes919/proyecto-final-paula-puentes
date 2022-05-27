@@ -36,7 +36,9 @@
                         @keyup="validarPassword"
                         required
                     >
+            <span v-if="failLogin">Usuario o contraseña inválido</span>
             </div>
+           
             <button class="btn-modalLogin" @click="validarDatos">Iniciar Sesion</button>
             <h4 class="register">No estas registrado? Registrate aqui:</h4>
             <button class="btn-modalLogin">Registrarse</button>     
@@ -59,6 +61,7 @@ export default {
     },
     data: () => ({
       users: [],
+      userLogin: [],
       user:{
           username:'',
           password:'',
@@ -85,17 +88,33 @@ export default {
             }    
         });
     },
-     validarPassword(){
+    validarPassword(){
         this.users.forEach(element => {
             if (element.password == this.user.password){
                    return this.passwordOk = true;
             }    
         });
     },
+    // failLoginUser(){
+    //     if (!this.usernameOk || !this.passwordOk && (this.user.username=='' || this.user.password==''))
+    //         return 'failLoginBlack';
+    //     else if(!this.usernameOk || !this.passwordOk)
+    //          return 'failLoginRed';
+    // },
     validarDatos(){
-        if( this.usernameOk && this.passwordOk){
-            this.close();
-        }
+        this.userLogin = JSON.parse(localStorage.getItem('userLogin')) || [];
+        this.users.forEach( element => {
+            if( element.username == this.user.username && element.password == this.user.password){
+                 this.userLogin = JSON.parse(localStorage.setItem("userLogin", JSON.stringify(element)));
+                 if (element.isAdmin)
+                    this.$router.push({name:"AdminView"})
+                 else
+                    this.$router.push({name:"UserView"})
+                this.close();
+            }
+            else 
+                return this.failLogin = true;        
+        } )
     },
     close(){
         $vfm.hide('LoginModal'); 
@@ -167,5 +186,15 @@ export default {
     font-size: medium;
     margin-bottom: 0;
     margin-top: 2rem;
+}
+.failLoginRed{
+    color: red;
+    font-family: 'Press Start 2P', cursive;
+    font-size: smaller;
+}
+.failLoginBlack{
+    color: black;
+    font-family: 'Press Start 2P', cursive;
+    font-size: smaller;
 }
 </style>
