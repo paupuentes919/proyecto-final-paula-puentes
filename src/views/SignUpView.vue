@@ -1,43 +1,45 @@
 <template>
   <div>
     <MenuProductos tituloCentral="Sign-Up"/>
-    <div class="contenido">
+    <div class="container">
         <div class="row">
-            <label for="inputUsername" class="typo-input">Usuario
-                <span v-if="usernameOk">✅</span>
-                </label>
-                    <input
-                        type="text"
-                        id="inputUsername"
-                        class="form-control"
-                        v-model="newUser.username"
-                        @keyup="validarUsername"
-                        required
-                    >
-            <label for="inputPassword" class="typo-input">Contraseña
-                <span v-if="passwordOk">✅</span>
-                </label>
-                    <input
-                        type="text"
-                        id="inputPassword"
-                        class="form-control"
-                        v-model="newUser.password"
-                        @keyup="validarPassword"
-                        required
-                    >
-            <label for="inputEmail" class="typo-input">Email
-                <span v-if="emailOk">✅</span>
-                </label>
-                    <input
-                        type="text"
-                        id="inputEmail"
-                        class="form-control"
-                        v-model="newUser.email"
-                        @keyup="validarEmail"
-                        required
-                    >  
-            <button class="btn-modalLogin" @click="crearUsuario">Registrarse</button> 
-        </div>
+            <div class="col col-12">
+                <label for="inputUsername" class="typo-input">Usuario
+                    <span v-if="usernameOk">✅</span>
+                    </label>
+                        <input
+                            type="text"
+                            id="inputUsername"
+                            class="form-control"
+                            v-model="newUser.username"
+                            @keyup="validarUsername"
+                            required
+                        >
+                <label for="inputPassword" class="typo-input">Contraseña
+                    <span v-if="passwordOk">✅</span>
+                    </label>
+                        <input
+                            type="text"
+                            id="inputPassword"
+                            class="form-control"
+                            v-model="newUser.password"
+                            @keyup="validarPassword"
+                            required
+                        >
+                <label for="inputEmail" class="typo-input">Email
+                    <span v-if="emailOk">✅</span>
+                    </label>
+                        <input
+                            type="text"
+                            id="inputEmail"
+                            class="form-control"
+                            v-model="newUser.email"
+                            @keyup="validarEmail"
+                            required
+                        >  
+                <button class="btn-modalLogin" @click="crearUsuario">Registrarse</button> 
+            </div>
+        </div> 
     </div>
   </div>
 </template>
@@ -111,9 +113,19 @@ export default {
 </script>
 
 <style scoped>
-.contenido{
-    background: white;
-    
+.container{
+    margin-top: 2rem; 
+    box-shadow: 100px 100px 200px;
+}
+.col-12{
+    padding: 2rem;
+    background: black;
+    border: 40px double rgb(67, 119, 233);
+}
+.typo-input{
+    color: yellow;
+    font-family: 'Press Start 2P', cursive;
+    margin: 1.5rem 0;
 }
 
 </style>
