@@ -77,23 +77,23 @@ export default {
     }),
     async created(){
         this.users = await api.traerUsuarios();
-        console.log("users", this.users)
     },
     mounted(){
     },
     methods:{
-        validarUsername(){
-            if (this.user.username.length < 3) {
-                this.usernameOk = false;//No permitimos nombres de menos de 3 caracteres
-            }else {
+        validarUsername(){ 
+            if (this.users.find(user => user.username === this.user.username)) {
                 this.usernameOk = true;
+            }else {
+                this.usernameOk = false;
             }
         },
         validarPassword(){
-            if (this.user.password.length < 3) {
-                this.passwordOk = false;//No permitimos passwords de menos de 3 caracteres
-            }else {
+            if (this.users.find(user => user.password === this.user.password) && this.usernameOk) {
                 this.passwordOk = true;
+                this.failLogin = false;
+            }else {
+                this.passwordOk = false;
             }
         },
         validarDatos(){
@@ -116,15 +116,13 @@ export default {
             }
         },
         registrarse(){
-             this.users.forEach( element => {
-                  if( element.username == this.user.username && element.password == this.user.password){
-                      this.registerDone = true;
-                  }
-                  else if (this.registerDone == false){
-                      this.$router.push({name:"SignUpView"})
-                      this.close();
-                  }      
-             })     
+            let userCreated = this.users.find(user => user.username === this.user.username && user.password === this.user.password)
+            if(userCreated)
+                this.registerDone = true;
+            else{
+                this.$router.push({name:"SignUpView"})
+                this.close();
+            }   
         },
         close(){
             $vfm.hide('LoginModal'); 
@@ -201,6 +199,9 @@ export default {
     color: red;
     font-family: 'Press Start 2P', cursive;
     font-size: smaller;
+}
+.form-control{
+    font-family: 'Press Start 2P', cursive;
 }
 
 </style>
