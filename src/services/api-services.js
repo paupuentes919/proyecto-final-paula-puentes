@@ -14,6 +14,12 @@ const api = {
             let resultado = await axios.get(apiURL + '/users');
             return resultado.data;
         } catch (error) {console.log(error)}
+    }, 
+    crearUsuario: async (usuario) => {
+        try {
+            let resultado = await axios.post(apiURL + '/users', usuario);
+            return resultado.data;
+        } catch (error) {console.log(error)}
     }
 }
 export default api

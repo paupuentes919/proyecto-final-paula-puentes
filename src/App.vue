@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavBar nombreNegocio="Pac-Foodie Company" :cart="cart"/>
-    <MenuProductos tituloCentral="Menu"/>
+    <!-- <MenuProductos tituloCentral="Menu"/> -->
     <!-- <ProductosCards v-for="product in products"
       :key="product.id" 
       :product="product"
@@ -19,7 +19,7 @@
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
 import NavBar from './components/NavBar.vue'
-import MenuProductos from './components/MenuProductos.vue'
+//import MenuProductos from './components/MenuProductos.vue'
 // import ProductosCards from './components/ProductosCards.vue'
 //import ModalCarrito from './components/ModalCarrito.vue'
 // import axios from 'axios'
@@ -30,7 +30,7 @@ export default {
     name: 'App',
     components: {
     NavBar,
-    MenuProductos,
+    //MenuProductos,
     //ProductosCards,
     //ModalCarrito
 },

@@ -68,7 +68,6 @@ export default {
       user:{
           username:'',
           password:'',
-          email:''
       },
       usernameOk: false,
       passwordOk: false,
