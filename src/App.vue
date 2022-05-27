@@ -1,14 +1,19 @@
 <template>
   <div id="app">
-    <NavBar nombreNegocio="Pac-Foodie Company" :cart="cart"/>
+    <NavBar nombreNegocio="Pac-Foodie Company" 
+      :cart="cart"
+      @logged-in="login"/>
+
+
     <!-- <MenuProductos tituloCentral="Menu"/> -->
     <!-- <ProductosCards v-for="product in products"
       :key="product.id" 
       :product="product"
       @agregar-al-carrito="actualizarCarrito"/> -->
     <router-view
-      :products = "products"
+      :product = "product"
       :cart = "cart"
+      :user="user"
       @agregar-al-carrito="actualizarCarrito"
     />
 
@@ -36,7 +41,8 @@ export default {
 },
   data: () => ({
       products: [],
-      cart: []
+      cart: [],
+      user: null
     }),
   mounted(){
     this.traerProductos();
@@ -92,6 +98,19 @@ export default {
           // console.log("nuevo - precio total", this.newProduct.total);
        }
     },
+    login(user){
+      console.log("llego",user);
+      if (this.user.isAdmin)
+        this.$router.push({name:"AdminView"})
+      else
+        this.$router.push({name:"UserView"})
+
+
+       // if (element.isAdmin)
+                    //     this.$router.push({name:"AdminView"})
+                    // else
+                    //     this.$router.push({name:"UserView"})
+    }
   } 
 }
 </script>

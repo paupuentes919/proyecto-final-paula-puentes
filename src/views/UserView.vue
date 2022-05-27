@@ -1,23 +1,26 @@
 <template>
     <div>
-      <!-- ACÁ IRÍA EL LISTADO DE PRODUCTOS -->
+        <MenuProductos tituloCentral="Menu"/>
 
       
-        <!-- <ProductosCards
+       <ProductosCards
             v-for="product in products"
             :key="product.id"
             :product="product"
             @agregar-al-carrito="actualizarCarrito"
-        /> -->
+        /> 
     </div>
 </template>
 
 <script>
-// import ProductosCards from "../components/ProductosCards.vue";
+import MenuProductos from '../components/MenuProductos.vue';
+import ProductosCards from "../components/ProductosCards.vue";
+
 
 export default {
     components: {
-        // ProductosCards,
+        MenuProductos,
+        ProductosCards,
     },
 };
 </script>
