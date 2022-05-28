@@ -14,30 +14,23 @@
 
 import MenuProductos from '../components/MenuProductos.vue'
 import ProductosCards from '@/components/ProductosCards.vue'
-import api from '../services/api-services'
 
 export default {
-     components:{
-    MenuProductos,
-    ProductosCards
-},
-data: () => ({
-      products: [],
-      cart: [],
-      user: null
-    }),
-  mounted(){
-    this.traerProductos();
-    this.traerCarrito();
-    
-  },
-  methods:{
-    async traerProductos(){
-      this.products = await api.traerProductos();
+    components:{
+        MenuProductos,
+        ProductosCards
     },
-
-    
-}
+    props: {
+        products: {
+            type: Array,
+            required: true
+        },
+    },
+    methods: {
+        actualizarCarrito({ productId, cantidadId }) {
+            this.$emit('agregar-al-carrito', productId, cantidadId);
+        }
+    }
 }
 </script>
 

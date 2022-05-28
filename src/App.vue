@@ -3,6 +3,12 @@
     <NavBar nombreNegocio="Pac-Foodie Company" 
       :cart="cart"
       @logged-in="login"/>
+      
+      <router-link 
+      v-if="user"
+      :to="user.isAdmin ? '/Admin' : '/Productos'"
+    >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
+    </router-link>
 
 
     <!-- <MenuProductos tituloCentral="Menu"/> -->
@@ -11,11 +17,13 @@
       :product="product"
       @agregar-al-carrito="actualizarCarrito"/> -->
     <router-view
-      :product = "product"
+      :products = "products"
       :cart = "cart"
       :user="user"
       @agregar-al-carrito="actualizarCarrito"
     />
+
+    
 
 
   </div>
@@ -100,16 +108,7 @@ export default {
     },
     login(user){
       console.log("llego",user);
-      if (this.user.isAdmin)
-        this.$router.push({name:"AdminView"})
-      else
-        this.$router.push({name:"UserView"})
-
-
-       // if (element.isAdmin)
-                    //     this.$router.push({name:"AdminView"})
-                    // else
-                    //     this.$router.push({name:"UserView"})
+      return user;
     }
   } 
 }

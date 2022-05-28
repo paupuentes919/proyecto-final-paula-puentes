@@ -20,7 +20,11 @@
         v-model="MostrarModalCarrito"
         :cart="cart"> 
     </modal-carrito> 
-    <LoginModal v-model="MostrarModalLogin"/>
+    <LoginModal 
+        v-model="MostrarModalLogin"
+        @logged-in="login"
+        />
+    />
 </div> 
 </template>
 
@@ -42,7 +46,8 @@ export default {
     },
     cart: {
       type: Array,
-    }
+    },
+    user: null
   },
   data: () => ({
     MostrarModalCarrito: false,
@@ -51,6 +56,15 @@ export default {
   computed: {
     cartCounter () {
       return this.cart.reduce((acc, product) => acc + product.quantity, 0)
+    }
+  },
+  mounted() {
+      this.login();
+  },
+  methods:{
+      login(user){
+        console.log("llego???",user);
+        this.$emit('logged-in', user);
     }
   }
 
