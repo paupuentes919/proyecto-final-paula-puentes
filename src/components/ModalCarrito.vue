@@ -29,7 +29,7 @@
                         <div class="game-over">
                             <div class="space">GAME OVER</div> 
                             <div class="space">Precio Total: $ {{sumarPrecioTotal}}</div>
-                            <button class="space">Comprar</button> 
+                            <button class="space" @click="guardarOrdenDeCompra(user.id, cart)">Comprar</button> 
                         </div>
                     </div>
                     <div v-else>
@@ -46,6 +46,7 @@
 
 
 import { $vfm, VueFinalModal} from 'vue-final-modal'
+import api from '../services/api-services'
 
 export default {
     components:{
@@ -54,8 +55,14 @@ export default {
     props:{
         cart: {
             type: Array
+        },
+        user:{
+            type: Object
         }
     },
+    data: () => ({
+      guardarCompraUser: [],
+    }),
     methods:{
         close(){
             $vfm.hide('ModalCarrito');
@@ -95,8 +102,11 @@ export default {
                     productCart.total = productCart.total + productCart.price;
                 } 
                 })   
+        },
+        async guardarOrdenDeCompra(userId, cartUserId){
+            this.guardarCompraUser = await api.guardarOrdenDeCompra(userId,cartUserId);
+            console.log("compraaaaaaaar");
         }
-
     },
      computed:{
          sumarPrecioTotal(){

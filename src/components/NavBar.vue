@@ -4,16 +4,23 @@
         <div class="flex-nombre-carrito">
             <h3 class="typo-pacman">{{nombreNegocio}}</h3>
             <div class="login-carrito">
-                    <button class="btn-login" @click="MostrarModalLogin = true">
-                        <img class="play-triangule" alt="play" src="../assets/playtriangule.png">Login
-                    </button>
+            
+                    <router-link class="btn-login"
+                        v-if="user"
+                            :to="user.isAdmin ? '/Admin' : '/Productos'"
+                            >Hoa
+                    </router-link>
+         
+                <button class="btn-login" @click="MostrarModalLogin = true">
+                    <img class="play-triangule" alt="play" src="../assets/playtriangule.png">Login
+                </button>
                 <button class="btn-login" @click="MostrarModalCarrito = true">
                     <div class="carrito-qty">
                         <img class="cart-shop" alt="cart" src="../assets/carrito.png">
                         <h3 class="counter">{{cartCounter}}</h3>
                     </div>
                 </button>
-            </div>
+            </div>    
         </div>
     </nav> 
     <modal-carrito

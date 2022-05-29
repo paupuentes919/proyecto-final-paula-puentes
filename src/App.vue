@@ -8,16 +8,6 @@
     </nav-bar>
 
 
-
-
-
-     <router-link 
-      v-if="user"
-      :to="user.isAdmin ? '/Admin' : '/Productos'"
-    >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
-    </router-link>
-
-
     <!-- <MenuProductos tituloCentral="Menu"/> -->
     <!-- <ProductosCards v-for="product in products"
       :key="product.id" 
@@ -91,6 +81,7 @@ export default {
           productInCart.total = productInCart.total + parseInt(cantidadId) * productInCart.price;
           //productInCart.stock = productInCart.stock - parseInt(cantidadId);
           console.log("cart 2", this.cart);
+         
               
         } else {
           // Si el producto no esta en el carrito, lo agrego.  

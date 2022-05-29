@@ -2,10 +2,11 @@ import axios from 'axios';
 
 const apiURL = process.env.VUE_APP_API_URL;
 
-const api = {
-    traerProductos: async() => {
+const api = {  
+    // --------------------------- USUARIOS ---------------------------
+    crearUsuario: async (usuario) => {
         try {
-            let resultado = await axios.get(apiURL + '/products');
+            let resultado = await axios.post(apiURL + '/users', usuario);
             return resultado.data;
         } catch (error) {console.log(error)}
     },
@@ -15,15 +16,23 @@ const api = {
             return resultado.data;
         } catch (error) {console.log(error)}
     }, 
-    crearUsuario: async (usuario) => {
+    // --------------------------- PRODUCTOS ---------------------------
+    traerProductos: async() => {
         try {
-            let resultado = await axios.post(apiURL + '/users', usuario);
+            let resultado = await axios.get(apiURL + '/products');
             return resultado.data;
         } catch (error) {console.log(error)}
     },
+    eliminarProductos: async(id) => {
+        try {
+            let resultado = await axios.delete(apiURL + '/products/' + id);
+            return resultado.data;
+        } catch (error) {console.log(error)}
+    },
+    // --------------------------- COMPRAS ---------------------------
     guardarOrdenDeCompra: async (userID, orden) => {
-        let total = orden.reduce((acc, product) => acc + product.total, 0);
-        let ordenCreada = {...orden, total};
+        let precioTotalAcc = orden.reduce((acc, product) => acc + product.precioTotalAcc, 0);
+        let ordenCreada = {...orden, precioTotalAcc};
         try {
             let resultado = await axios.post(apiURL + '/users/' + userID + '/orders', ordenCreada);
             return resultado.data;
