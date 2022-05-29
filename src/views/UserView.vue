@@ -29,9 +29,14 @@ export default {
             type: Array
         },
     },
+    mounted(){
+        this.traerOrdenesCompra();
+
+    },
     methods: {
         actualizarCarrito({ productId, cantidadId }){
             this.$emit('agregar-al-carrito', productId, cantidadId);
+            console.log("user", this.user);
         } 
     }
 };

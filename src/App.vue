@@ -1,10 +1,17 @@
 <template>
   <div id="app">
-    <NavBar nombreNegocio="Pac-Foodie Company" 
+    <nav-bar 
+      nombreNegocio="Pac-Foodie Company" 
       :cart="cart"
-      @logged-in="login"/>
-      
-      <router-link 
+      @logged-in="login">
+      holaaaaaaaaaaaaaaa
+    </nav-bar>
+
+
+
+
+
+     <router-link 
       v-if="user"
       :to="user.isAdmin ? '/Admin' : '/Productos'"
     >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
