@@ -1,6 +1,20 @@
 <template>
-   <div>
+   <div class="content">
       <!-- <MenuProductos tituloCentral="Lista"/> -->
+      <h3 class="table-header">1UP</h3>
+      <img class="play-heart" alt="heart" src="../assets/heartvideogame2.png">
+      <router-link
+              :to="{
+                name: 'UpdateView',
+                params:{
+                  id: '',
+                  product: {}
+                }}"
+                class="btn-actualizar">Agregar Producto
+              </router-link>
+      <img class="play-heart2" alt="heart" src="../assets/heartvideogame.png">
+      <img class="play-heart2" alt="heart" src="../assets/heartvideogame.png">
+      <img class="play-heart2" alt="heart" src="../assets/heartvideogame.png">
       <table class="table-orders table">
         <thead class="table-header">
           <tr>
@@ -74,12 +88,16 @@ export default {
       async eliminarProducto(id){
         await api.eliminarProductos(id);
         this.listaProductos = this.listaProductos.filter(product => product.id != id)
-      }
+      },
     }
 }
 </script>
 
 <style>
+.content{
+  background: black;
+  padding: 2rem;
+}
 .table-orders{
     display: block;
     justify-content: center;
@@ -122,5 +140,17 @@ export default {
 }
 tr, td{
   text-align: center;
+}
+.play-heart{
+  margin-top: -0.3em;
+  margin-right: 1em;
+  margin-left: 1em;
+  width: 10rem;
+}
+.play-heart2{
+  margin-top: -0.3em;
+  margin-right: 1em;
+  margin-left: 1em;
+  width: 2rem;
 }
 </style>

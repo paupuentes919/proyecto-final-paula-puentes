@@ -29,6 +29,18 @@ const api = {
             return resultado.data;
         } catch (error) {console.log(error)}
     },
+    actualizarProductos: async(id, updateData) => {
+        try {
+            let resultado = await axios.put(apiURL + '/products/' + id, updateData);
+            return resultado.data;
+        } catch (error) {console.log(error)}
+    },
+    guardarNuevoProducto: async(product) => {
+        try {
+            let resultado = await axios.post(apiURL + '/products', product);
+            return resultado.data;
+        } catch (error) {console.log(error)}
+    },
     // --------------------------- COMPRAS ---------------------------
     guardarOrdenDeCompra: async (userID, orden) => {
         let precioTotalAcc = orden.reduce((acc, product) => acc + product.precioTotalAcc, 0);

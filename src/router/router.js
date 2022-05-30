@@ -29,6 +29,12 @@ const routes = [
         component: () => import("../views/SignUpView.vue"),
         props: true
     },
+    {
+        path: "/UpdateView",
+        name: "UpdateView",
+        component: () => import("../views/UpdateView.vue"),
+        props: true
+    },
 ]
 
 const router = new VueRouter({
