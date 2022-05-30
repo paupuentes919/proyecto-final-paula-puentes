@@ -52,7 +52,7 @@ export default {
   mounted(){
     this.traerProductos();
     this.traerCarrito();
-    console.log(this.userLogged);//Ejemplo de cómo recuperar el usuario, usando la computed del mixin
+    console.log("usuario loggeado App",this.userLogged);//Ejemplo de cómo recuperar el usuario, usando la computed del mixin
     
   },
   methods:{

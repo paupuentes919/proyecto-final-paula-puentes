@@ -46,7 +46,8 @@ export default {
     },
     methods: {
         async traerOrdenesCompras(){
-            this.compraUsuario = await api.traerOrdenesCompras();
+            this.compraUsuario = await api.traerOrdenesCompras(this.userLogged.id);
+            console.log("userLoggeado ID", this.userLogged.id);
         } 
     }
 };

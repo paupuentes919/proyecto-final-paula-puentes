@@ -5,10 +5,10 @@
             <h3 class="typo-pacman">{{nombreNegocio}}</h3>
             <div class="login-carrito">
             
-                    <router-link class="btn-login"
-                        v-if="user"
+                    <router-link class="btn-login btn-views"
+                        v-if="user!=null"
                             :to="user.isAdmin ? '/Admin' : '/Productos'"
-                            >Hoa
+                            >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
                     </router-link>
          
                 <button class="btn-login" @click="MostrarModalLogin = true">
@@ -54,11 +54,12 @@ export default {
     cart: {
       type: Array,
     },
-    user: null
+    
   },
   data: () => ({
     MostrarModalCarrito: false,
-    MostrarModalLogin: false
+    MostrarModalLogin: false,
+    user: null
   }),
   computed: {
     cartCounter () {
@@ -67,11 +68,13 @@ export default {
   },
   mounted() {
       this.login();
-        console.log(this.userLogged); //Ejemplo de cómo recuperar el usuario, usando la computed del mixin
+        console.log("usuario loggeado NavBar",this.userLogged); //Ejemplo de cómo recuperar el usuario, usando la computed del mixin
   },
   methods:{
       login(user){
         console.log("llego???",user);
+        this.user = user;
+        console.log("this user",this.user);
         this.$emit('logged-in', user);
     }
   }
@@ -133,6 +136,12 @@ export default {
     height: 3.5rem;
     box-shadow: 1px 1px 2px;
     border-radius: 10px;  
+}
+.btn-views{
+    text-decoration: none;
+    color: black;
+    padding: 1.1rem;
+    border-color: 1px black;
 }
 .btn-cart{
     margin: 0 2rem;
