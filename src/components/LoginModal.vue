@@ -103,6 +103,9 @@ export default {
                     datosValidos = true;
                     this.SaveUserLogged(element); // Llamamos al método del mixin
                     this.$emit('logged-in', element);
+                    Object.keys(this.user).forEach(key => this.user[key] = '');
+                    this.usernameOk = false;
+                    this.passwordOk = false;
                     //Acá guardamos el usuario logueado en el storage, para luego recuperarlo en alguna otra vista.
                     //localStorage.setItem("userLogin", JSON.stringify(element));
                     // if (element.isAdmin)

@@ -4,15 +4,18 @@
         <div class="flex-nombre-carrito">
             <h3 class="typo-pacman">{{nombreNegocio}}</h3>
             <div class="login-carrito">
-            
-                    <router-link class="btn-login btn-views"
-                        v-if="user!=null"
-                            :to="user.isAdmin ? '/Admin' : '/Productos'"
-                            >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
-                    </router-link>
-         
-                <button class="btn-login" @click="MostrarModalLogin = true">
-                    <img class="play-triangule" alt="play" src="../assets/playtriangule.png">Login
+                <router-link class="btn-login btn-views"
+                    v-if="user!=null"
+                        :to="user.isAdmin ? '/Admin' : '/Productos'"
+                        >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
+                </router-link>
+                <button id="btn-session" class="btn-login">
+                    <div @click="MostrarModalLogin = true" v-if="user==null">
+                        <img class="play-triangule" alt="play" src="../assets/playtriangule.png">{{showLogin}}
+                    </div>
+                    <div @click="showLogout" v-if="user!=null">
+                        <img class="play-triangule" alt="play" src="../assets/cross.png">{{showLogin}}
+                    </div>
                 </button>
                 <button class="btn-login" @click="MostrarModalCarrito = true">
                     <div class="carrito-qty">
@@ -27,11 +30,10 @@
         v-model="MostrarModalCarrito"
         :cart="cart"> 
     </modal-carrito> 
-    <LoginModal 
+    <login-modal
         v-model="MostrarModalLogin"
         @logged-in="login"
-        />
-    />
+    ></login-modal>
 </div> 
 </template>
 
@@ -59,24 +61,39 @@ export default {
   data: () => ({
     MostrarModalCarrito: false,
     MostrarModalLogin: false,
-    user: null
+    user: null,
+    session: 'Login',
+    clickCounter:  0
   }),
   computed: {
     cartCounter () {
       return this.cart.reduce((acc, product) => acc + product.quantity, 0)
+    },
+      showLogin(){
+            if ((this.user!=null || this.userLogged!=null))
+                 return 'Logout'
+            else
+                 return 'Login'
     }
   },
   mounted() {
-      this.login();
+    this.login();
         console.log("usuario loggeado NavBar",this.userLogged); //Ejemplo de cómo recuperar el usuario, usando la computed del mixin
   },
   methods:{
-      login(user){
+    login(user){
         console.log("llego???",user);
         this.user = user;
         console.log("this user",this.user);
         this.$emit('logged-in', user);
-    }
+    },
+    showLogout(){
+        this.userLogged = null;
+        this.user = null;
+        console.log("limpieza",this.userLogged);
+    },
+  
+
   }
 
 }
@@ -141,6 +158,7 @@ export default {
     text-decoration: none;
     color: black;
     padding: 1.1rem;
+    background: rgb(97, 190, 221) !important;
     border-color: 1px black;
 }
 .btn-cart{
