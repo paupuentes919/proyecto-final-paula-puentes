@@ -101,6 +101,7 @@ export default {
             this.users.forEach( element => {
                 if( element.username == this.user.username && element.password == this.user.password){
                     datosValidos = true;
+                    this.SaveUserLogged(element); // Llamamos al método del mixin
                     this.$emit('logged-in', element);
                     //Acá guardamos el usuario logueado en el storage, para luego recuperarlo en alguna otra vista.
                     //localStorage.setItem("userLogin", JSON.stringify(element));

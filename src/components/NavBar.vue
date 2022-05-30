@@ -67,6 +67,7 @@ export default {
   },
   mounted() {
       this.login();
+        console.log(this.userLogged); //Ejemplo de cómo recuperar el usuario, usando la computed del mixin
   },
   methods:{
       login(user){
