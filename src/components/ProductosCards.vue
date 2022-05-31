@@ -34,6 +34,7 @@ export default {
                     productId: this.product.id, 
                     cantidadId: this.cantidad
                 }); 
+                console.log("a ver que se manda", this.product.id, this.cantidad); //se mando bien 
             }
         },
         cantidadSeleccionada(event){

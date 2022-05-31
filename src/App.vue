@@ -73,8 +73,8 @@ export default {
     actualizarCarrito({ productId, cantidadId }) {
       
         //let i = this.products.indexOf(productId);
-        // console.log("ver id", productId); // llego ok el ID
-        // console.log("ver cantidad", cantidad); // llego ok la cantidad
+        console.log("ver id", productId); //no llego ok el ID
+        console.log("ver cantidad", cantidadId); // no llego ok la cantidad
         const productInCart = this.cart.find(product => product.id === productId)
         if (productInCart) {
           // Si el producto ya esta en el carrito solamente cambio la cantidad y el precio total para ese producto:
