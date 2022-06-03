@@ -82,6 +82,7 @@ export default {
   },
   methods:{
     login(user){
+        console.log("NAVBAR Usuario Loggueado",this.userLogged);
         console.log("llego???",user);
         this.user = user;
         console.log("this user",this.user);
@@ -91,9 +92,8 @@ export default {
         this.userLogged = null;
         this.user = null;
         console.log("limpieza",this.userLogged);
+        this.$route.name != 'home' && this.$router.push('/');
     },
-  
-
   }
 
 }
