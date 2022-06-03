@@ -43,7 +43,7 @@ const api = {
     },
     // --------------------------- COMPRAS ---------------------------
     guardarOrdenDeCompra: async (userID, orden) => {
-        let precioTotalAcc = orden.reduce((acc, product) => acc + product.precioTotalAcc, 0);
+        let precioTotalAcc = orden.reduce((acc, product) => acc + product.total, 0);
         let ordenCreada = {...orden, precioTotalAcc};
         try {
             let resultado = await axios.post(apiURL + '/users/' + userID + '/orders', ordenCreada);

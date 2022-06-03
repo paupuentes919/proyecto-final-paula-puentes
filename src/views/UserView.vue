@@ -12,13 +12,16 @@
                 </tr>
             </thead>
             <tbody class="table-body">
-                <tr v-for="productUser in compraUsuario" :key="productUser.total">
-                    <td scope="col" colspan="3">{{productUser.title}}</td>
-                    <td scope="col" colspan="1">{{productUser.quantity}}</td>
-                    <td scope="col" colspan="1">{{productUser.price}}</td>
-                    <td scope="col" colspan="1">{{productUser.total}}</td>
-                    <td scope="col" colspan="1">{{productUser.precioTotalAcc}}</td>
-                </tr>
+                <div v-for="productUser in compraUsuario" :key="productUser.id">
+                    
+                    <tr v-for="(productUsers, index) in compraUsuario" :key="index">
+                        <td scope="col" colspan="3">{{productUser[productUser.id-1].title}}</td>
+                        <td scope="col" colspan="1">{{productUser[productUser.id-1].quantity}}</td>
+                        <td scope="col" colspan="1">{{productUser[productUser.id-1].price}}</td>
+                        <td scope="col" colspan="1">{{productUser[productUser.id-1].total}}</td>
+                        <td scope="col" colspan="1">{{productUser.precioTotalAcc}}</td>
+                    </tr>
+                </div>
             </tbody>
         </table>
     </div>
@@ -50,6 +53,7 @@ export default {
     methods: {
         async traerOrdenesCompras(){
             this.compraUsuario = await api.traerOrdenesCompras(this.userLogged.id);
+            console.log("Compra Usuariooosssssssssssss", this.compraUsuario);
             console.log("userLoggeado ID", this.userLogged.id);
         } 
     }
@@ -59,9 +63,9 @@ export default {
 <style scoped>
 
 .table-orders{
-    display: flex;
     justify-content: center;
     background: black;
+    padding: 3rem;
 }
 .table-header{
     font-family: 'Press Start 2P', cursive;

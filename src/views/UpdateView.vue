@@ -23,8 +23,7 @@
                 type="number"
                 id="inputPrice"
                 class="form-control"
-                :v-model="form.price"
-                :value="product.price"
+                v-model="form.price"
                 required
             > 
             <label for="inputStock" class="typo-input">Stock</label>

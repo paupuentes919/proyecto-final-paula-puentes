@@ -29,7 +29,7 @@
                         <div class="game-over">
                             <div class="space">GAME OVER</div> 
                             <div class="space">Precio Total: $ {{sumarPrecioTotal}}</div>
-                            <button class="space" @click="guardarOrdenDeCompra(user.id, cart)">Comprar</button> 
+                            <button class="space" @click="guardarOrdenDeCompra(userLogged.id, cart)">Comprar</button> 
                         </div>
                     </div>
                     <div v-else>

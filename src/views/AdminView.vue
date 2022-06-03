@@ -93,7 +93,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .content{
   background: black;
   padding: 2rem;
@@ -118,7 +118,7 @@ export default {
 .image-product{
   width: 8rem;
 }
-.btn-actualizar{
+a.btn-actualizar{
   font-family: 'Press Start 2P', cursive;
   color: black;
   font-size: 18px;
@@ -127,6 +127,7 @@ export default {
   text-decoration: none;
   border-radius: 10px;
   border: 2px solid black;
+  margin-top: 20px !important;
 }
 .btn-eliminar{
   font-family: 'Press Start 2P', cursive;
