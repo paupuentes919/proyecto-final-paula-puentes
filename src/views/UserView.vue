@@ -37,6 +37,9 @@ export default {
         user: {
             type: Object
         },
+        product: {
+            type: Object
+        }
     },
     data: () => ({
         compraUsuario: []

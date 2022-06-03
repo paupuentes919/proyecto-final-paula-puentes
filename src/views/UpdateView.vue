@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit="enviarActualizacion">
+    <form @submit.prevent="enviarActualizacion">
         <div class="row">
             <label for="inputTitle" class="typo-input">Producto</label>
             <input
@@ -39,19 +39,20 @@
                 type="text"
                 id="inputURL"
                 class="form-control"
-                v-model="form.url"
+                v-model="form.image"
                 required
             >
             <label for="inputColor" class="typo-input">Color</label>
-            <select v-model="form.colorSeleccionado">
+            <select v-model="form.color">
                     <option value="" selected></option>
                     <option class="typo-input-questions" v-for="color in listaOpciones" :value="color.opcion" :key="color.opcion" >{{ color.opcion}}</option>
             </select>        
             <div class="submit">
-             <input
+             <button
                 type="submit"
                 class="btn-submit"
-                value="message()">
+            >{{message}}
+            </button>
             </div>  
         </div>
     </form>
@@ -67,6 +68,9 @@ export default {
         id:{
             type: String,
         },
+        product: {
+            type: Object
+        }
     },
     data: () => ({
     form: {
@@ -74,8 +78,8 @@ export default {
         description:'',
         price: '',
         stock: '',
-        url:'',
-        colorSeleccionado: '',
+        image:'',
+        color: '',
     },
     listaOpciones: [
                 {
@@ -98,14 +102,29 @@ export default {
                 return this.id == '' ? 'Agregar Producto' : 'Actualizar Producto'
             }
         }
-
     },
     methods:{
         async enviarActualizacion(){
-            if( this.id == '')
-                await api.guardarNuevoProducto(this.form)
-            else
-                await api.actualizarProductos(this.id, this.form)
+
+            const formulario = {
+                title: this.form.title,
+                description: this.form.description,
+                price: parseFloat(this.form.price),  //agrego ParseFloat porque sino llegan los numeros como strings
+                stock: parseFloat(this.form.stock),  //agrego ParseFloat porque sino llegan los numeros como strings
+                image: this.form.image,
+                color: this.form.color
+            }
+
+            if( this.id == ''){
+                await api.guardarNuevoProducto(formulario)
+                console.log("form", formulario)
+            }
+                
+            else{
+                await api.actualizarProductos(this.id, formulario)
+                console.log("form", formulario)
+            }
+                
         this.$router.push('/Admin');     
         }
     }
