@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         actualizarCarrito({ productId, cantidadId }) {
-            this.$emit('agregar-al-carrito', productId, cantidadId);
+            this.$emit('agregar-al-carrito', {productId, cantidadId});
         }
     }
 }
