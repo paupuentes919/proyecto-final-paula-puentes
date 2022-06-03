@@ -7,7 +7,8 @@
                 type="text"
                 id="inputTitle"
                 class="form-control"
-                v-model="form.title"
+                :v-model="form.title"
+                :value="product.title"
                 required
             >
             <label for="inputDescription" class="typo-input">Descripcion</label>
@@ -15,7 +16,8 @@
                 type="text"
                 id="inputDescription"
                 class="form-control"
-                v-model="form.description"
+                :v-model="form.description"
+                :value="product.description"
                 required
             >
             <label for="inputPrice" class="typo-input">Precio</label>
@@ -23,7 +25,8 @@
                 type="number"
                 id="inputPrice"
                 class="form-control"
-                v-model="form.price"
+                :v-model="form.price"
+                :value="product.price"
                 required
             > 
             <label for="inputStock" class="typo-input">Stock</label>
@@ -31,7 +34,8 @@
                 type="number"
                 id="inputStock"
                 class="form-control"
-                v-model="form.stock"
+                :v-model="form.stock"
+                :value="product.stock"
                 required
             >
             <label for="inputURL" class="typo-input">Image URL</label>
@@ -39,11 +43,12 @@
                 type="text"
                 id="inputURL"
                 class="form-control"
-                v-model="form.image"
+                :v-model="form.image"
+                :value="product.image"
                 required
             >
             <label for="inputColor" class="typo-input">Color</label>
-            <select v-model="form.color">
+            <select :v-model="form.color" :value="product.color">
                     <option value="" selected></option>
                     <option class="typo-input-questions" v-for="color in listaOpciones" :value="color.opcion" :key="color.opcion" >{{ color.opcion}}</option>
             </select>        
