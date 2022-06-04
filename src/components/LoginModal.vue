@@ -57,7 +57,7 @@
 
 import { $vfm, VueFinalModal} from 'vue-final-modal'
 import api from '../services/api-services'
-
+import { mapActions, mapGetters } from "vuex";
 export default {
     components:{
         VueFinalModal
@@ -80,7 +80,13 @@ export default {
     },
     mounted(){
     },
+    computed:{
+        ...mapGetters("user", ["userAdmin"])
+    },
     methods:{
+        //Importamos la/las actions que necesitemos desde el store user
+        //FIXME: Eliminar las que están como ejemplo, ahora nos sirve solamente SetUserLoggedFromLocalStorage
+        ...mapActions("user", ["SetUserLoggedFromLogin", "OtraAction", "OtraAction1"]),
         validarUsername(){ 
             if (this.users.find(user => user.username === this.user.username)) {
                 this.usernameOk = true;
@@ -101,23 +107,27 @@ export default {
             this.users.forEach( element => {
                 if( element.username == this.user.username && element.password == this.user.password){
                     datosValidos = true;
-                    this.SaveUserLogged(element); // Llamamos al método del mixin
-                    this.$emit('logged-in', element);
+                    this.SetUserLoggedFromLogin(element); // Acá llamamos a la action importada con el mapAction
+                    //this.$emit('logged-in', element); //Ya no haría falta porque ahora la variable la recuperamos del store user
                     Object.keys(this.user).forEach(key => this.user[key] = '');
                     this.usernameOk = false;
                     this.passwordOk = false;
-                    //Acá guardamos el usuario logueado en el storage, para luego recuperarlo en alguna otra vista.
-                    //localStorage.setItem("userLogin", JSON.stringify(element));
-                    // if (element.isAdmin)
-                    //     this.$router.push({name:"AdminView"})
-                    // else
-                    //     this.$router.push({name:"UserView"})
                     this.close();
                 }    
             })
 
             if (datosValidos == false){
                 this.failLogin = true; 
+            }
+
+            //Acá dirigimos al usuario según si es admin o no.
+            if (datosValidos == true){
+                //(userAdmin es un getter del store, el cual lo mapeamos en la computed de arriba)
+                if (this.userAdmin){
+                    this.$router.push({ name: "AdminView"});
+                }else{
+                    this.$router.push({ name: "UserView"});
+                }
             }
         },
         registrarse(){
