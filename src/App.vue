@@ -13,12 +13,12 @@
       :key="product.id" 
       :product="product"
       @agregar-al-carrito="actualizarCarrito"/> -->
-    <router-view
+    <!-- <router-view
       :products = "products"
       :cart = "cart"
       :user="user"
       @agregar-al-carrito="actualizarCarrito"
-    />
+    /> -->
 
     
 
@@ -35,7 +35,7 @@ import NavBar from './components/NavBar.vue'
 // import axios from 'axios'
 import api from './services/api-services'
 
-
+import { mapActions, mapState } from "vuex";
 export default {
     name: 'App',
     components: {
@@ -47,8 +47,19 @@ export default {
   data: () => ({
       products: [],
       cart: [],
-      user: null
+      // user: null // YA NO HARÍA FALTA
     }),
+  created(){
+      //Llalamos a la action del store user, la cual se encarga de obtener el user del local storage
+      // y además setea su variable userLogged
+      this.SetUserLoggedFromLocalStorage();
+      //Comprobamos cómo ya podemos acceder a esa variable importando el mapState, y luego mapeando
+      //las variables del store que queramos. Luego de eso ya podemos accederla de esta manera:
+      console.log(this.userLogged);
+  },
+  computed:{
+    ...mapState("user", ["userLogged"])
+  },
   mounted(){
     this.traerProductos();
     this.traerCarrito();
@@ -56,6 +67,9 @@ export default {
     
   },
   methods:{
+    //Importamos la/las actions que necesitemos desde el store user
+    //FIXME: Eliminar las que están como ejemplo, ahora nos sirve solamente SetUserLoggedFromLocalStorage
+    ...mapActions("user", ["SetUserLoggedFromLocalStorage", "OtraAction", "OtraAction1"]),
     async traerProductos(){
       this.products = await api.traerProductos();
     },
