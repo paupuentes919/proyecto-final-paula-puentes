@@ -3,7 +3,6 @@
     <nav-bar 
       nombreNegocio="Pac-Foodie Company" 
       :cart="cart"
-      @logged-in="login"
       @actualizar-num="updateNum">
     </nav-bar>
 
@@ -53,7 +52,6 @@ export default {
   mounted(){
     this.traerProductos();
     this.traerCarrito();
-    console.log("usuario loggeado App",this.userLogged);//Ejemplo de cómo recuperar el usuario, usando la computed del mixin
     
   },
   methods:{
@@ -111,13 +109,7 @@ export default {
           // console.log("nuevo - precio total", this.newProduct.total);
        }
     },
-    login(user){
-      if(this.userLogged == null && user!=null)
-            this.userLogged = user;
-      console.log("llego",user);
-      console.log("llego 2",this.userLogged);
-      return this.userLogged;
-    }
+ 
   } 
 }
 </script>

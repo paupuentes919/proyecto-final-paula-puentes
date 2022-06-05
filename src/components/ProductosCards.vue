@@ -17,7 +17,12 @@
 </div>
 </template>
 
+
+
 <script>
+
+import { mapActions, mapGetters } from "vuex";
+
 export default {
     name: 'ProductosCards',
     props:{
@@ -30,7 +35,11 @@ export default {
       cantidad: null,
       count: 1
     }),
+    computed:{
+        ...mapGetters("userLogged", ["userLogged"])
+    },
     methods: {
+        ...mapActions("userLogged", ["setUser"]),
         agregarAlCarrito() {
             if (this.cantidad <= this.product.stock && this.cantidad > 0) {  //le mando del hijo al padre la informacion de que se apreto el boton de "agregar al carrito", mandandole el id del producto seleccionado 
                 this.$emit("agregar-al-carrito", {

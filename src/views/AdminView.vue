@@ -65,19 +65,18 @@
 
 //import MenuProductos from '../components/MenuProductos.vue';
 import api from '../services/api-services'
+import { mapGetters } from "vuex";
 
 export default {
     components: {
        // MenuProductos,
     },
-    props: {
-        user: {
-            type: Object
-        },
-    },
     data: () => ({
         listaProductos: []
     }),
+    computed:{
+      ...mapGetters("userLogged", ["userLogged"])
+    },
     mounted(){
       this.traerProductos();
       this.verifyUser();
