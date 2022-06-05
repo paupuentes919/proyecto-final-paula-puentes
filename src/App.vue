@@ -3,8 +3,8 @@
     <nav-bar 
       nombreNegocio="Pac-Foodie Company" 
       :cart="cart"
-      @logged-in="login">
-      holaaaaaaaaaaaaaaa
+      @logged-in="login"
+      @actualizar-num="updateNum">
     </nav-bar>
 
 
@@ -18,6 +18,7 @@
       :cart = "cart"
       :user="user"
       @agregar-al-carrito="actualizarCarrito"
+      
     />
 
     
@@ -61,6 +62,11 @@ export default {
     },
     traerCarrito(){
       this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+    },
+    updateNum() {
+      console.log("LLEGOOO A APPPP")
+        this.cart = [];
+        console.log("carrrrrrito", this.cart);
     },
     // async traerProductos(){
     //   try {
@@ -106,8 +112,11 @@ export default {
        }
     },
     login(user){
+      if(this.userLogged == null && user!=null)
+            this.userLogged = user;
       console.log("llego",user);
-      return user;
+      console.log("llego 2",this.userLogged);
+      return this.userLogged;
     }
   } 
 }

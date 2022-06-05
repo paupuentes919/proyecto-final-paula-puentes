@@ -14,6 +14,7 @@ export default {
     methods: {
         SaveUserLogged(user){
             this.userLogged = user;
+            console.log("A ver a ver que pasooooooooo", this.userLogged);
             localStorage.setItem(this.lsUserKey, JSON.stringify(user));
         },
         GetUserLoggedFromStorage(){
@@ -22,6 +23,7 @@ export default {
     },
     computed:{
         getUserLogged(){
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", this.userLogged);
             return this.userLogged;
         }
     }

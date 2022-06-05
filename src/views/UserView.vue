@@ -1,28 +1,29 @@
 <template>
     <div>
         <MenuProductos tituloCentral="Mis Pedidos"/>
-    
+        <div class="saludar-usuario">Hola {{userLogged.username}} !!</div>
         <table class="table-orders table">
-            <thead class="table-header">
-                <tr>
-                    <th scope="col" colspan="3">Producto</th>
-                    <th scope="col" colspan="1">Cantidad</th>
-                    <th scope="col" colspan="1">Precio</th>
-                    <th scope="col" colspan="1">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                <div v-for="productUser in compraUsuario" :key="productUser.id">
-                    
-                    <tr v-for="(productUsers, index) in compraUsuario" :key="index">
-                        <td scope="col" colspan="3">{{productUser[productUser.id-1].title}}</td>
-                        <td scope="col" colspan="1">{{productUser[productUser.id-1].quantity}}</td>
-                        <td scope="col" colspan="1">{{productUser[productUser.id-1].price}}</td>
-                        <td scope="col" colspan="1">{{productUser[productUser.id-1].total}}</td>
-                        <td scope="col" colspan="1">{{productUser.precioTotalAcc}}</td>
+            <div class="content-table" v-for="(purchase, index) in compraUsuario" :key="index">
+                <br>
+                <thead class="table-header">
+                    <tr>
+                        <th scope="col" colspan="3">Producto</th>
+                        <th scope="col" colspan="1">Cantidad</th>
+                        <th scope="col" colspan="1">Precio</th>
+                        <th scope="col" colspan="1">Subtotal</th>
                     </tr>
-                </div>
-            </tbody>
+                </thead>
+                <tbody class="table-body">   
+                        <tr v-for="(productUser, i) in compraUsuario" :key="i">
+                            <td scope="col" colspan="3">{{purchase[productUser.id - 1].title}}</td>
+                            <td scope="col" colspan="1">{{purchase[productUser.id - 1].quantity}}</td>
+                            <td scope="col" colspan="1">{{purchase[productUser.id - 1].price}}</td>
+                            <td scope="col" colspan="1">{{purchase[productUser.id - 1].total}}</td>
+                        </tr> 
+                        <br>
+                </tbody>
+            <div scope="col" colspan="2" class="total-price">Total $ {{purchase.precioTotalAcc}}</div>
+            </div>
         </table>
     </div>
 </template>
@@ -49,23 +50,31 @@ export default {
     }),
     mounted(){
         this.traerOrdenesCompras();
+        this.verifyUser();
     },
     methods: {
         async traerOrdenesCompras(){
             this.compraUsuario = await api.traerOrdenesCompras(this.userLogged.id);
             console.log("Compra Usuariooosssssssssssss", this.compraUsuario);
             console.log("userLoggeado ID", this.userLogged.id);
-        } 
+            this.compraUsuario.forEach (element => {
+                console.log("Mira bien jshdhddhc", element);
+            })
+        },
+        verifyUser(){
+        if(this.userLogged == null || this.userLogged.isAdmin == true)
+          return this.$router.push('/'); 
+      }
     }
 };
 </script>
 
 <style scoped>
-
 .table-orders{
+    display: block;
     justify-content: center;
     background: black;
-    padding: 3rem;
+    padding: 1rem;
 }
 .table-header{
     font-family: 'Press Start 2P', cursive;
@@ -76,6 +85,29 @@ export default {
 .table-body{
     font-family: 'Press Start 2P', cursive;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
+}
+tr, td, th{
+  text-align: center;
+  padding: 1.5rem;
+}
+.content-table{
+    display: inline;
+    justify-content: center;
+}
+.total-price{
+    font-family: 'Press Start 2P', cursive;
+    color: rgb(21, 165, 248);
+    font-weight: bold;
+    font-size: 22px;
+    padding-left: 50rem;
+}
+.saludar-usuario{
+    background: black;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 25px;
+    -webkit-text-stroke: 1px black;
+    color: yellow;
+    padding-top: 1rem;
 }
 </style>

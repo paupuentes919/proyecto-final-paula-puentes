@@ -7,8 +7,11 @@
         <p class="card-text typo-text">{{product.description}}</p> 
         <h6 class="typo-text-bold">Precio Unitario: $ {{product.price}}</h6>
         <p class="typo-text">Disponibles: {{product.stock}}</p>
-        <p class="typo-text">Cantidad: <input type="number" min="1" :max="product.stock" name="cantidad" @input="cantidadSeleccionada"></p>
-        <button class="btn btn-primary typo-text" @click="agregarAlCarrito">Agregar al Carrito</button>
+        <p class="typo-text">Cantidad: <input type="number" min=0 :max="product.stock" name="cantidad" @input="cantidadSeleccionada"></p>
+        <button 
+            v-if="product.stock != 0 && userLogged!=null"
+            class="btn btn-primary typo-text" @click="agregarAlCarrito">Agregar al Carrito
+        </button>
     </div>
     </div>  
 </div>

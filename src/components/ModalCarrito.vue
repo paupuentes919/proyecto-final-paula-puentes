@@ -38,7 +38,6 @@
                 </div>
         </div>
     </div>
-
   </vue-final-modal>
 </template>
 
@@ -62,6 +61,17 @@ export default {
     },
     data: () => ({
       guardarCompraUser: [],
+      updateCart: 
+            {
+                title: '',
+                description:'',
+                price: '',
+                stock: '',
+                image:'',
+                color: '',
+            }
+        ,
+    
     }),
     methods:{
         close(){
@@ -104,8 +114,23 @@ export default {
                 })   
         },
         async guardarOrdenDeCompra(userId, cartUserId){
+            cartUserId.forEach(element => {
+
+                element.stock = element.stock - element.quantity;
+               
+                this.updateCart.title = element.title;
+                this.updateCart.description = element.description;
+                this.updateCart.price = parseFloat(element.price);
+                this.updateCart.stock = parseFloat(element.stock);
+                this.updateCart.image = element.image;
+                this.updateCart.color = element.color;
+                
+                api.actualizarProductos(element.id, this.updateCart);
+            });
             this.guardarCompraUser = await api.guardarOrdenDeCompra(userId,cartUserId);
-            console.log("compraaaaaaaar");
+
+            this.$emit("actualizar-num", this.cart);  
+            window.location.reload();
         }
     },
      computed:{

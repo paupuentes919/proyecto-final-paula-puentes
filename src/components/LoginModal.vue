@@ -102,7 +102,8 @@ export default {
                 if( element.username == this.user.username && element.password == this.user.password){
                     datosValidos = true;
                     this.SaveUserLogged(element); // Llamamos al método del mixin
-                    this.$emit('logged-in', element);
+                    console.log("A ver a ver que pasooooooooo 2", element);
+                    this.$emit("logged-in", element);
                     Object.keys(this.user).forEach(key => this.user[key] = '');
                     this.usernameOk = false;
                     this.passwordOk = false;
@@ -113,6 +114,7 @@ export default {
                     // else
                     //     this.$router.push({name:"UserView"})
                     this.close();
+                    window.location.reload();
                 }    
             })
 

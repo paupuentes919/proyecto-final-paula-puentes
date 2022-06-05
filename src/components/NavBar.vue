@@ -2,7 +2,9 @@
 <div>
     <nav class="nav-bar">
         <div class="flex-nombre-carrito">
+            <button class="btn-HomePage" @click="homePage">
             <h3 class="typo-pacman">{{nombreNegocio}}</h3>
+            </button>
             <div class="login-carrito">
                 <router-link class="btn-login btn-views"
                     v-if="user!=null"
@@ -14,7 +16,7 @@
                         <img class="play-triangule" alt="play" src="../assets/playtriangule.png">{{showLogin}}
                     </div>
                     <div @click="showLogout" v-if="user!=null">
-                        <img class="play-triangule" alt="play" src="../assets/cross.png">{{showLogin}}
+                        <img class="play-triangule" alt="cross" src="../assets/cross.png">{{showLogin}}
                     </div>
                 </button>
                 <button class="btn-login" @click="MostrarModalCarrito = true">
@@ -28,7 +30,8 @@
     </nav> 
     <modal-carrito
         v-model="MostrarModalCarrito"
-        :cart="cart"> 
+        :cart="cart"
+        @actualizar-num="updateNum"> 
     </modal-carrito> 
     <login-modal
         v-model="MostrarModalLogin"
@@ -67,7 +70,7 @@ export default {
   }),
   computed: {
     cartCounter () {
-      return this.cart.reduce((acc, product) => acc + product.quantity, 0)
+      return this.cart.reduce((acc, product) => acc + product.quantity, 0);
     },
       showLogin(){
             if ((this.user!=null || this.userLogged!=null))
@@ -82,18 +85,28 @@ export default {
   },
   methods:{
     login(user){
+        // if(this.userLogged == null && user!=null)
+        //     this.userLogged = user;
         console.log("NAVBAR Usuario Loggueado",this.userLogged);
         console.log("llego???",user);
-        this.user = user;
-        console.log("this user",this.user);
+        this.user = this.userLogged
+        console.log("this user",user);
         this.$emit('logged-in', user);
     },
     showLogout(){
-        this.userLogged = null;
+        localStorage.clear();
         this.user = null;
         console.log("limpieza",this.userLogged);
         this.$route.name != 'home' && this.$router.push('/');
+        window.location.reload();
     },
+    updateNum() {
+        console.log("LLEGO A NAVBAR EL EMIT");
+        this.$emit("actualizar-num", this.cart);
+    },
+    homePage(){
+        this.$route.name != 'home' && this.$router.push('/');
+    }
   }
 
 }
@@ -176,6 +189,10 @@ export default {
 }
 .carrito-qty{
     display: -webkit-box;
+}
+.btn-HomePage{
+    background: transparent;
+    border: none;
 }
 
 

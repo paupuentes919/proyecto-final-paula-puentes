@@ -80,6 +80,7 @@ export default {
     }),
     mounted(){
       this.traerProductos();
+      this.verifyUser();
     },
     methods:{
       async traerProductos(){
@@ -89,7 +90,11 @@ export default {
         await api.eliminarProductos(id);
         this.listaProductos = this.listaProductos.filter(product => product.id != id)
       },
-    }
+      verifyUser(){
+        if(this.userLogged == null || this.userLogged.isAdmin == false)
+          return this.$router.push('/'); 
+      }
+    },
 }
 </script>
 

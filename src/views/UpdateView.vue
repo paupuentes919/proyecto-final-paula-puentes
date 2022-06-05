@@ -99,6 +99,7 @@ export default {
     computed:{
         message:{
             get(){
+                console.log("PRODUUCT",this.product);
                 return this.id == '' ? 'Agregar Producto' : 'Actualizar Producto'
             }
         }
