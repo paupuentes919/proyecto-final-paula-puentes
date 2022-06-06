@@ -2,7 +2,7 @@
   <div>
       <MenuProductos tituloCentral="Menu"/>
       <ProductosCards
-        v-for="product in productos" 
+        v-for="product in $store.getters.products" 
             :key="product.id"
             @agregar-al-carrito="actualizarCarrito"
         /> 
@@ -13,14 +13,16 @@
 <script>
 
 import MenuProductos from '../components/MenuProductos.vue'
-//import ProductosCards from '@/components/ProductosCards.vue'
+import ProductosCards from '@/components/ProductosCards.vue'
+import { mapActions, mapGetters } from "vuex";
+
 
 
 
 export default {
     components:{
         MenuProductos,
-        //ProductosCards
+        ProductosCards
     },
     props: {
         productos: {
@@ -29,18 +31,22 @@ export default {
         },
     },
     computed:{
-        products() {
-            console.log("VER PRODUCTOS HomeView",this.$store.getters.products);
-                return this.$store.getters.products
-            }
+        ...mapGetters(['products'])
+        
+        // products() {
+        //     console.log("VER PRODUCTOS HomeView",this.$store.getters.products);
+        //         return this.$store.getters.products
+        //     }
     },
     created() {
-        this.$store.dispatch('traerProductos')
+        //this.$store.dispatch('traerProductos')
+        this.traerProductos();
     },
     // mounted(){
     //     this.completarArrayProductos();
     // },
     methods: {
+        ...mapActions(["traerProductos"]),
         actualizarCarrito({ productId, cantidadId }) {
             this.$emit('agregar-al-carrito', {productId, cantidadId});
         }, 
