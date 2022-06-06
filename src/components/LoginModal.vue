@@ -57,8 +57,6 @@
 
 import { $vfm, VueFinalModal} from 'vue-final-modal'
 import api from '../services/api-services'
-import { mapActions, mapGetters } from "vuex";
-
 
 export default {
     components:{
@@ -77,17 +75,12 @@ export default {
       registerDone: false
 
     }),
-    computed:{
-        ...mapGetters("userLogged", ["userLogged"])
-    },
     async created(){
         this.users = await api.traerUsuarios();
     },
     mounted(){
     },
     methods:{
-        ...mapActions("userLogged", ["setUser"]),
-
         validarUsername(){ 
             if (this.users.find(user => user.username === this.user.username)) {
                 this.usernameOk = true;
@@ -105,27 +98,29 @@ export default {
         },
         validarDatos(){
             let datosValidos = false;
-            this.users.find( element => {
+            this.users.forEach( element => {
                 if( element.username == this.user.username && element.password == this.user.password){
                     datosValidos = true;
-
-                    this.setUser(element);
-                    console.log("element",element);
-                    this.close();
-                    //window.location.reload();
-                }   
-            })
-
-            Object.keys(this.user).forEach(key => this.user[key] = '');
-                    console.log("USEEEER", this.user);
+                    this.SaveUserLogged(element); // Llamamos al método del mixin
+                    console.log("A ver a ver que pasooooooooo 2", element);
+                    this.$emit("logged-in", element);
+                    Object.keys(this.user).forEach(key => this.user[key] = '');
                     this.usernameOk = false;
-                    this.passwordOk = false; 
+                    this.passwordOk = false;
+                    //Acá guardamos el usuario logueado en el storage, para luego recuperarlo en alguna otra vista.
+                    //localStorage.setItem("userLogin", JSON.stringify(element));
+                    // if (element.isAdmin)
+                    //     this.$router.push({name:"AdminView"})
+                    // else
+                    //     this.$router.push({name:"UserView"})
+                    this.close();
+                    window.location.reload();
+                }    
+            })
 
             if (datosValidos == false){
                 this.failLogin = true; 
             }
-            this.failLogin = false; 
-
         },
         registrarse(){
             let userCreated = this.users.find(user => user.username === this.user.username && user.password === this.user.password)

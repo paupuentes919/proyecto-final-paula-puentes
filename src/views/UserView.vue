@@ -31,7 +31,6 @@
 <script>
 import MenuProductos from '../components/MenuProductos.vue';
 import api from '../services/api-services'
-import { mapGetters } from "vuex";
 
 
 export default {
@@ -39,6 +38,9 @@ export default {
         MenuProductos,
     },
     props: {
+        user: {
+            type: Object
+        },
         product: {
             type: Object
         }
@@ -46,9 +48,6 @@ export default {
     data: () => ({
         compraUsuario: []
     }),
-    computed:{
-         ...mapGetters("userLogged", ["userLogged"])
-    },
     mounted(){
         this.traerOrdenesCompras();
         this.verifyUser();
