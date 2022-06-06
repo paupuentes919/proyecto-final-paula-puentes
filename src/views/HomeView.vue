@@ -5,7 +5,7 @@
         v-for="product in $store.getters.products" 
             :key="product.id"
             @agregar-al-carrito="actualizarCarrito"
-        /> 
+        />
         {{products}}
   </div>
 </template>
