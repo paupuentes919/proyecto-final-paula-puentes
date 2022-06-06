@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import userLogged from "./modules/userLogged";
+import userLogged from "./modules/userLogged"
+import cart from "./modules/cart"
 import api from '../services/api-services'
 
 Vue.use(Vuex)
@@ -28,7 +29,8 @@ export default new Vuex.Store({
           }
     },
     modules:{
-        userLogged
+        userLogged,
+        cart
 
     }
 })

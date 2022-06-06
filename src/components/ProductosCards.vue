@@ -31,18 +31,26 @@ export default {
     }),
     computed:{
         ...mapGetters("userLogged", ["userLogged"]),
+        ...mapGetters("cart", ["cart","cantidad"]),
     },
     methods: {
         ...mapActions("userLogged", ["setUser"]),
-        agregarAlCarrito() {
-            if (this.cantidad <= this.product.stock && this.cantidad > 0) {  //le mando del hijo al padre la informacion de que se apreto el boton de "agregar al carrito", mandandole el id del producto seleccionado 
-                this.$emit("agregar-al-carrito", {
-                    productId: this.product.id, 
-                    cantidadId: this.cantidad
-                }); 
-                console.log("a ver que se manda", this.product.id, this.cantidad); //se mando bien 
+        ...mapActions("cart", ["traerCarrito","actualizarCarrito"]),
+
+        agregarAlCarrito(){
+            if (this.cantidad <= this.product.stock && this.cantidad > 0) {
+                this.actualizarCarrito(this.product, this.cantidad);
             }
         },
+
+        // agregarAlCarrito() {
+        //     if (this.cantidad <= this.product.stock && this.cantidad > 0) {  
+        //         this.$emit("agregar-al-carrito", {
+        //             productId: this.product.id, 
+        //             cantidadId: this.cantidad
+        //         }); 
+        //     }
+        // },
         cantidadSeleccionada(event){
             return this.cantidad = event.target.value;
         },

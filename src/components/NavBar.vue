@@ -56,9 +56,6 @@ export default {
         type: String,
         required: true
     },
-    cart: {
-      type: Array,
-    },
     
   },
   data: () => ({
@@ -68,6 +65,7 @@ export default {
     clickCounter:  0
   }),
   computed: {
+    ...mapGetters("cart", ["cart"]),
     cartCounter () {
       return this.cart.reduce((acc, product) => acc + product.quantity, 0);
     },

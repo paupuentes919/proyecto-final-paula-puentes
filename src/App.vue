@@ -2,7 +2,7 @@
   <div id="app">
     <nav-bar 
       nombreNegocio="Pac-Foodie Company" 
-      :cart="cart"
+     
       @actualizar-num="updateNum">
     </nav-bar>
 
@@ -13,9 +13,7 @@
       :product="product"
       @agregar-al-carrito="actualizarCarrito"/> -->
     <router-view
-      
-      :cart = "cart"
-      @agregar-al-carrito="actualizarCarrito"
+     
       
     />
 
@@ -46,11 +44,11 @@ export default {
 },
   data: () => ({
       //products: [],
-      cart: [],
+      //cart: [],
     }),
   mounted(){
     //this.traerProductos();
-    this.traerCarrito();
+    //this.traerCarrito();
     
   },
 
@@ -58,12 +56,12 @@ export default {
     // async traerProductos(){
     //   this.products = await api.traerProductos();
     // },
-    traerCarrito(){
-      this.cart = JSON.parse(localStorage.getItem('cart')) || [];
-    },
+    // traerCarrito(){
+    //   this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // },
     updateNum() {
       console.log("LLEGOOO A APPPP")
-        this.cart = [];
+        //this.cart = [];
         console.log("carrrrrrito", this.cart);
     },
     // async traerProductos(){
@@ -74,41 +72,41 @@ export default {
     //     console.log(this.products);
     //   } catch (error) {console.log(error)}
     // },
-    actualizarCarrito({ productId, cantidadId }) {
+    // actualizarCarrito({ productId, cantidadId }) {
       
-        //let i = this.products.indexOf(productId);
-        console.log("ver id", productId); //no llego ok el ID
-        console.log("ver cantidad", cantidadId); // no llego ok la cantidad
-        const productInCart = this.cart.find(product => product.id === productId)
-        if (productInCart) {
-          // Si el producto ya esta en el carrito solamente cambio la cantidad y el precio total para ese producto:
-          productInCart.quantity = productInCart.quantity + parseInt(cantidadId);
-          productInCart.total = productInCart.total + parseInt(cantidadId) * productInCart.price;
-          //productInCart.stock = productInCart.stock - parseInt(cantidadId);
-          console.log("cart 2", this.cart);
+    //     //let i = this.products.indexOf(productId);
+    //     console.log("ver id", productId); //no llego ok el ID
+    //     console.log("ver cantidad", cantidadId); // no llego ok la cantidad
+    //     const productInCart = this.cart.find(product => product.id === productId)
+    //     if (productInCart) {
+    //       // Si el producto ya esta en el carrito solamente cambio la cantidad y el precio total para ese producto:
+    //       productInCart.quantity = productInCart.quantity + parseInt(cantidadId);
+    //       productInCart.total = productInCart.total + parseInt(cantidadId) * productInCart.price;
+    //       //productInCart.stock = productInCart.stock - parseInt(cantidadId);
+    //       console.log("cart 2", this.cart);
          
               
-        } else {
-          // Si el producto no esta en el carrito, lo agrego.  
-          // Para no mutar propiedades del array de productos original ==> No conviene modificar la info original del JSON
-          // busco el producto y lo guardo en un nuevo objeto:
-          const findProduct = this.products.find(product => product.id === productId);
-          const newProduct = { ...findProduct };
-          console.log("newProduct", newProduct);
-          console.log("cart", newProduct);
-          console.log("cart id", this.cart);
+    //     } else {
+    //       // Si el producto no esta en el carrito, lo agrego.  
+    //       // Para no mutar propiedades del array de productos original ==> No conviene modificar la info original del JSON
+    //       // busco el producto y lo guardo en un nuevo objeto:
+    //       const findProduct = this.products.find(product => product.id === productId);
+    //       const newProduct = { ...findProduct };
+    //       console.log("newProduct", newProduct);
+    //       console.log("cart", newProduct);
+    //       console.log("cart id", this.cart);
         
-          this.cart.push({
-            ...newProduct,
-           quantity: parseInt(cantidadId), 
-           total: newProduct.price * parseInt(cantidadId),
-           //stock: stockId - parseInt(cantidadId)
-          })
+    //       this.cart.push({
+    //         ...newProduct,
+    //        quantity: parseInt(cantidadId), 
+    //        total: newProduct.price * parseInt(cantidadId),
+    //        //stock: stockId - parseInt(cantidadId)
+    //       })
           
-          // console.log("nuevo - cantidad", this.newProduct.quantity);
-          // console.log("nuevo - precio total", this.newProduct.total);
-       }
-    },
+    //       // console.log("nuevo - cantidad", this.newProduct.quantity);
+    //       // console.log("nuevo - precio total", this.newProduct.total);
+    //    }
+    // },
  
   } 
 }
