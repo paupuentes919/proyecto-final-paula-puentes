@@ -25,18 +25,12 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: 'ProductosCards',
-    props:{
-        product:{
-            type: Object,
-            required: true   
-        },
-    },
     data: () => ({
       cantidad: null,
       count: 1
     }),
     computed:{
-        ...mapGetters("userLogged", ["userLogged"])
+        ...mapGetters("userLogged", ["userLogged"]),
     },
     methods: {
         ...mapActions("userLogged", ["setUser"]),

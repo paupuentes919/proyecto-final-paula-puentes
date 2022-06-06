@@ -13,9 +13,8 @@
       :product="product"
       @agregar-al-carrito="actualizarCarrito"/> -->
     <router-view
-      :products = "products"
+      
       :cart = "cart"
-      :user="user"
       @agregar-al-carrito="actualizarCarrito"
       
     />
@@ -33,7 +32,8 @@ import NavBar from './components/NavBar.vue'
 // import ProductosCards from './components/ProductosCards.vue'
 //import ModalCarrito from './components/ModalCarrito.vue'
 // import axios from 'axios'
-import api from './services/api-services'
+//import api from './services/api-services'
+
 
 
 export default {
@@ -45,19 +45,19 @@ export default {
     //ModalCarrito
 },
   data: () => ({
-      products: [],
+      //products: [],
       cart: [],
-      user: null
     }),
   mounted(){
-    this.traerProductos();
+    //this.traerProductos();
     this.traerCarrito();
     
   },
+
   methods:{
-    async traerProductos(){
-      this.products = await api.traerProductos();
-    },
+    // async traerProductos(){
+    //   this.products = await api.traerProductos();
+    // },
     traerCarrito(){
       this.cart = JSON.parse(localStorage.getItem('cart')) || [];
     },
