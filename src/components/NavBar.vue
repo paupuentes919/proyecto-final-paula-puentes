@@ -7,16 +7,16 @@
             </button>
             <div class="login-carrito">
                 <router-link class="btn-login btn-views"
-                    v-if="userLogged!=null"
-                        :to="userLogged.isAdmin ? '/Admin' : '/Productos'"
-                        >{{ userLogged.isAdmin ? 'Admin' : 'Mi Cuenta' }}
+                    v-if="user!=null"
+                        :to="user.isAdmin ? '/Admin' : '/Productos'"
+                        >{{ user.isAdmin ? 'Admin' : 'Mi Cuenta' }}
                 </router-link>
                 <button id="btn-session" class="btn-login">
-                    <div @click="MostrarModalLogin = true" v-if="userLogged==null">
-                        <img class="play-triangule" alt="play" src="../assets/playtriangule.png">{{LoginLogout}}
+                    <div @click="MostrarModalLogin = true" v-if="user==null">
+                        <img class="play-triangule" alt="play" src="../assets/playtriangule.png">{{showLogin}}
                     </div>
-                    <div @click="showLogout" v-if="userLogged!=null">
-                        <img class="play-triangule" alt="cross" src="../assets/cross.png">{{LoginLogout}}
+                    <div @click="showLogout" v-if="user!=null">
+                        <img class="play-triangule" alt="cross" src="../assets/cross.png">{{showLogin}}
                     </div>
                 </button>
                 <button class="btn-login" @click="MostrarModalCarrito = true">
@@ -35,6 +35,7 @@
     </modal-carrito> 
     <login-modal
         v-model="MostrarModalLogin"
+        @logged-in="login"
     ></login-modal>
 </div> 
 </template>
@@ -43,7 +44,6 @@
 
 import ModalCarrito from './ModalCarrito.vue';
 import LoginModal from './LoginModal.vue';
-import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: 'NavBar',
@@ -64,6 +64,7 @@ export default {
   data: () => ({
     MostrarModalCarrito: false,
     MostrarModalLogin: false,
+    user: null,
     session: 'Login',
     clickCounter:  0
   }),
@@ -71,24 +72,33 @@ export default {
     cartCounter () {
       return this.cart.reduce((acc, product) => acc + product.quantity, 0);
     },
-    LoginLogout(){
-            if ((this.userLogged!=null))
+      showLogin(){
+            if ((this.user!=null || this.userLogged!=null))
                  return 'Logout'
             else
                  return 'Login'
-    },
-    ...mapGetters("userLogged", ["userLogged"])
+    }
   },
   mounted() {
-
+    this.login();
+        console.log("usuario loggeado NavBar",this.userLogged); //Ejemplo de cómo recuperar el usuario, usando la computed del mixin
   },
   methods:{
-    ...mapActions("userLogged", ["setUser"]),
- 
+    login(user){
+        // if(this.userLogged == null && user!=null)
+        //     this.userLogged = user;
+        console.log("NAVBAR Usuario Loggueado",this.userLogged);
+        console.log("llego???",user);
+        this.user = this.userLogged
+        console.log("this user",user);
+        this.$emit('logged-in', user);
+    },
     showLogout(){
-        console.log("a veeeeeer", this.userLogged);
-        this.setUser();
+        localStorage.clear();
+        this.user = null;
+        console.log("limpieza",this.userLogged);
         this.$route.name != 'home' && this.$router.push('/');
+        window.location.reload();
     },
     updateNum() {
         console.log("LLEGO A NAVBAR EL EMIT");

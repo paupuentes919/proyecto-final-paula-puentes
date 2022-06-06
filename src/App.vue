@@ -3,6 +3,7 @@
     <nav-bar 
       nombreNegocio="Pac-Foodie Company" 
       :cart="cart"
+      @logged-in="login"
       @actualizar-num="updateNum">
     </nav-bar>
 
@@ -13,8 +14,9 @@
       :product="product"
       @agregar-al-carrito="actualizarCarrito"/> -->
     <router-view
-      
+      :products = "products"
       :cart = "cart"
+      :user="user"
       @agregar-al-carrito="actualizarCarrito"
       
     />
@@ -32,8 +34,7 @@ import NavBar from './components/NavBar.vue'
 // import ProductosCards from './components/ProductosCards.vue'
 //import ModalCarrito from './components/ModalCarrito.vue'
 // import axios from 'axios'
-//import api from './services/api-services'
-
+import api from './services/api-services'
 
 
 export default {
@@ -45,19 +46,20 @@ export default {
     //ModalCarrito
 },
   data: () => ({
-      //products: [],
+      products: [],
       cart: [],
+      user: null
     }),
   mounted(){
-    //this.traerProductos();
+    this.traerProductos();
     this.traerCarrito();
+    console.log("usuario loggeado App",this.userLogged);//Ejemplo de cómo recuperar el usuario, usando la computed del mixin
     
   },
-
   methods:{
-    // async traerProductos(){
-    //   this.products = await api.traerProductos();
-    // },
+    async traerProductos(){
+      this.products = await api.traerProductos();
+    },
     traerCarrito(){
       this.cart = JSON.parse(localStorage.getItem('cart')) || [];
     },
@@ -109,7 +111,13 @@ export default {
           // console.log("nuevo - precio total", this.newProduct.total);
        }
     },
- 
+    login(user){
+      if(this.userLogged == null && user!=null)
+            this.userLogged = user;
+      console.log("llego",user);
+      console.log("llego 2",this.userLogged);
+      return this.userLogged;
+    }
   } 
 }
 </script>
